@@ -4,20 +4,29 @@ import { useNavigate } from 'react-router-dom';
 
 const Landing = () => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const [isButtonVisible, setIsButtonVisible] = useState(true); // State to control button visibility
   const navigate = useNavigate();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    // Mimic image load animation
+    const imageTimer = setTimeout(() => {
       setIsImageLoaded(true);
-    }, 100); // Mimic the animation delay
-    return () => clearTimeout(timer);
-  }, []);
+    }, 100); // Animation delay for image
 
-  const handleGetStarted = () => {
-    navigate('/auth-main', {
-      state: { transition: 'fade' }, // Mimic the page transition (you can customize this as needed)
-    });
-  };
+    // Navigate after 3 seconds and remove the button
+    const navigateTimer = setTimeout(() => {
+      setIsButtonVisible(false); // Hide the button
+      navigate('/auth-main', {
+        state: { transition: 'fade' }, // Mimic the page transition
+      });
+    }, 3000); // 3 seconds to wait before navigation
+
+    // Clean up timers when the component unmounts
+    return () => {
+      clearTimeout(imageTimer);
+      clearTimeout(navigateTimer);
+    };
+  }, [navigate]);
 
   return (
     <div className="landing-page" onClick={() => document.activeElement.blur()}>
@@ -30,9 +39,13 @@ const Landing = () => {
           />
         </div>
         <h2 className="headline">Find Your next adventure Together</h2>
-        <button className="get-started-button" onClick={handleGetStarted}>
-          Get Started
-        </button>
+
+        {/* Conditionally render the button */}
+        {isButtonVisible && (
+          <button className="get-started-button" onClick={() => {}}>
+            Get Started
+          </button>
+        )}
       </div>
     </div>
   );
