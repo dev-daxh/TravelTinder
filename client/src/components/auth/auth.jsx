@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./auth.css";
 
 const AuthPage = () => {
@@ -8,6 +9,7 @@ const AuthPage = () => {
   const [showOtpCard, setShowOtpCard] = useState(false); // New state for showing OTP card
   const [otp, setOtp] = useState(""); // State for OTP input
   const [sentOtp, setSentOtp] = useState(""); // State to store sent OTP for verification
+  const navigate = useNavigate();
 
   // Handle email input change
   const handleEmailChange = (e) => {
@@ -43,6 +45,12 @@ const AuthPage = () => {
     setIsButtonEnabled(false); // Disable button until new valid email is entered
   };
 
+  // Handle Google authentication
+  const handelGoogleAuth = () => {
+    // Redirect to the backend's Google authentication route
+    window.location.href = "http://localhost:3001/auth/googleauth"; // Adjust this URL as per your backend URL
+  };
+
   // Handle OTP input change
   const handleOtpChange = (e) => {
     const value = e.target.value;
@@ -58,12 +66,16 @@ const AuthPage = () => {
     // Log both the entered OTP and sent OTP for comparison
     console.log("Entered OTP:", otp);
     console.log("Sent OTP:", sentOtp);
-  
+
     if (otp.length === 6) {
       // Compare both values (ensure both are strings and trim any whitespace)
       if (String(otp).trim() === String(sentOtp).trim()) {
         alert("OTP verified successfully!");
         // Proceed to next step (e.g., redirect or other actions)
+
+        // Check in db for existing user 
+        // If not, then profile setup
+        navigate('/terms');
       } else {
         alert("Invalid OTP. Please try again.");
       }
@@ -71,7 +83,6 @@ const AuthPage = () => {
       alert("Please enter a valid 6-digit OTP.");
     }
   };
-  
 
   return (
     <div className="auth-background">
@@ -128,7 +139,7 @@ const AuthPage = () => {
         <div className="divider">Or Login/Signup With</div>
 
         <div className="social-buttons">
-          <button type="button" className="login-with-google-btn">
+          <button type="button" className="login-with-google-btn" onClick={handelGoogleAuth}>
             Sign in with Google
           </button>
         </div>

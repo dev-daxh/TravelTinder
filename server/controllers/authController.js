@@ -1,5 +1,8 @@
-const nodemailer = require("nodemailer");
 require("dotenv").config();
+const nodemailer = require("nodemailer");
+const jwt = require("jsonwebtoken"); // Import jwt for token generation
+const passport = require("../config/passportConfig");
+
 
 // Create a transporter for sending emails using Gmail SMTP
 const transporter = nodemailer.createTransport({
@@ -62,6 +65,56 @@ async function sendOTP(req, res) {
    }
 }
 
+
+const googleauthController = {
+  // Google authentication route
+  getGoogleAuth: passport.authenticate("google", { scope: ["profile", "email"] }),
+
+  // Google callback route
+  getGoogleCallback: [
+    passport.authenticate("google", { failureRedirect: "/auth-main" }),
+    (req, res) => {
+      // After successful authentication, we will send back the user info and token
+
+      const user = req.user; // This contains the Google user profile info
+
+      // Create a JWT token (you can customize the payload)
+      const token = jwt.sign(
+        {
+          userId: user.id, // Assuming `user.id` is available after successful authentication
+          email: user.emails[0].value, // Assuming the email is available in the profile
+        },
+        process.env.JWT_SECRET, // Use a secret key from your environment variables
+        { expiresIn: '1h' } // Token expiration time (optional)
+      );
+
+      // Send the user's email and token back in the response
+      res.json({
+        email: user.emails[0].value,
+        token: token,
+      });
+    },
+  ],
+
+  // Profile route (Optional: Can be used to show the profile page if needed)
+  getProfile: (req, res) => {
+    if (!req.user) {
+      return res.redirect("/auth-main");
+    }
+    res.send(`Welcome`);
+  },
+
+  // Logout route
+  logout: (req, res) => {
+    req.logout(() => {
+      res.redirect("/auth-main");
+    });
+  },
+};
+
+
+
+
 // // Verify OTP function (you can implement this later if needed)
 // async function verifyOTP(req, res) {
 //   const { otp, userOtp } = req.body;
@@ -72,4 +125,4 @@ async function sendOTP(req, res) {
 //   }
 // }
 
-module.exports = { sendOTP };
+module.exports = { sendOTP,googleauthController };
