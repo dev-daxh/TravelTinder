@@ -20,6 +20,7 @@
     "react-otp-input": "^3.1.1",
     "react-phone-input-2": "^2.15.1",
     "react-router-dom": "^6.30.0",
+    "react-toastify": "^11.0.5",
     "tailwind": "^4.0.0"
   },
   "devDependencies": {

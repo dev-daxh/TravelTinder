@@ -21,7 +21,7 @@ pool.getConnection((err, connection) => {
     return;
   }
 
-  console.log('Successfully connected to the MySQL server.');
+  console.log('Successfully connected to the MySQL server.',connection.threadId);
 
   // Always release the connection back to the pool after use
   connection.release();
@@ -35,3 +35,5 @@ pool.on('connection', (connection) => {
 pool.on('error', (err) => {
   console.error('MySQL pool error:', err.message);
 });
+
+module.exports = pool;  // Use module.exports
