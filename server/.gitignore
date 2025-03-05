@@ -1,8 +1,7 @@
 # Node modules
 node_modules/
 .env
-server/config/traveltinder-e2e1f-firebase-adminsdk-fbsvc-c84b6886ee.json
-
+server/config/travel.json
 # Logs
 *.log
 logs/

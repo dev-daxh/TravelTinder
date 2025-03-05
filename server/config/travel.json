@@ -1,0 +1,14 @@
+{
+    "type": "service_account",
+    "project_id": "traveltinder-e2e1f",
+    "private_key_id": "c84b6886ee582ffe8678a098e25e67f86f5cadbf",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC/sGjpLe/BQW18\nhIkDhp4ayyrlji5WmFvb1cPMuJLZKoSTthGF/PZj0I/osnypjnEoQM1JmqMnwYn6\n6hdOtVKTiJvUUnoT+jOj0/sT0ypuTT+miOeAmk89v2l4BPFyvXsEAzSF65qaBjbt\nKjtl3L/48mIvAFnMGkkLvf8YcYDEIz0nLxvQ+0Nlt5/2r3Q5wt6Yqa4SIZugSbX7\nolapPS+xJ0ioAQh35D9MaJtvvGe7V3dvVbcwhSEO6+4r6YW+/FMjeCKdK1+B0SG4\nFbtFbSLt92e24EOcvDYcgYFXtTsMsHDKUhYgFxm4+b7X6tycfE9p1xvbeGtzXS5E\nMg3EtHyrAgMBAAECggEAQUAHDizNWo7ven3Q9+rIgd1brkVeP6rgRe43lsXTcun2\ntCM7Rs1Lf8GcYvzy03LB0Q5x8taZKCzIz6kEow203LSZOsaSeJ9oGaHMazyryl0w\nR/t9NjkQtTelaq3gFIssRzriE54WA80OwF9qVau1i0PSqSYo6wGdkMotfgAQ8XJn\nhtmmJngngg/tfDtgPgnWswhSApTDR4bDa5zqR6CSQqDiPPf6DN7Qa4WbmSB213If\n2xiYv0kWMY9NTQocBkgbRSxAZUvB7qkkUXbfhEUBPTDg6nHHwWEPKt8rZTmZIFfz\nnT79xh8s6iL6dp7sQSqwXEwlPL2IfWXH9mgVILBwPQKBgQD41C/xDXR4LCExfSbH\nJjo3DS5O2RsKWkipRrJazoi7vAouzVuLwMeola9J1G6W/aop/RI8LGtDTBfqNty9\n3/JLmNYCYLEnP5tRff7eAlN7091WjRbBKPsWfpNNYJkNyqhfzYp4RGMGij1CFaaq\nJwQAxpZ9ZpiRiOhJCEKfnCB0hQKBgQDFNqf3Ej6eiX3s2KTcLaI/awplTNW6xWX1\np27G+Ze/mHiCnAFXmA4QLuljVtoqjH5b1vp4RN1YUS/X9NmiSlg2CW5WIVAzJbLY\nJ7zlozZqdSzkK4d3UbQANCPkvui9Y+UIRQFH0GOjKso6YMQ912tVeLOOgFFtRGF/\ncGOXEjNLbwKBgClR+yAZbuTh1yVDtiPOCk7IBo+bZ+0hLv3FOqrvry8Vu88n1PLx\nMXaiXLhy6WZze0V7vAJ4EdvcEACZ2bBCNxcsqyU7708oNd+jf6ZYVoqylQfhaAzt\nhDypCkcIKoJqy+kU1dDA8nzMif2mYMXSssx6LdVnKyDHzmMKVx3wLEeNAoGAbcgJ\nJE5xsUsUYD4RN8fnY6owdUeaSogMQ/1ae0UBplQ38WzqilpIqdWTcgstEzZ2OKWp\ndD3RgZJgMbVJWUBNbnc9hpCw1mgL8KveSW7bodNsk+9vT4qZyus7d+CWKqdrHXlc\nRx/H91KglHK9izdZtpCkU5U2vr6sD4b+yWAGUd0CgYEAnx89VEO8fgHZZcwWHwYV\nc0kuBSX3aJdgrcUUpeSR1LqFUganyMZTl5GL9uisKkqH7JFWJY6QOayri33CMDsQ\nQd1jb1DZSItxQ04DTm5hqTm2GG+p/lW3WDVHEu4Fo72833Jcu2k9UZ3FyseF/y/3\nlE3UURcxdo4lITZwnNDM71c=\n-----END PRIVATE KEY-----\n",
+    "client_email": "firebase-adminsdk-fbsvc@traveltinder-e2e1f.iam.gserviceaccount.com",
+    "client_id": "110324253523751173113",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40traveltinder-e2e1f.iam.gserviceaccount.com",
+    "universe_domain": "googleapis.com"
+  }
+  
