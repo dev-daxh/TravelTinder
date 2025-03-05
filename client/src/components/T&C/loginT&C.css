@@ -1,0 +1,89 @@
+.terms-container {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  font-size: 24px;
+  color: #222;
+}
+
+p {
+  color: #555;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.terms-content {
+  margin-top: 10px;
+  padding: 10px;
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #f9f9f9;
+}
+
+h2 {
+  color: #222;
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+.terms-footer {
+  margin-top: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+label {
+  display:inline;
+  align-items: center;
+  gap: 1px; /* Reduced gap between checkbox and text */
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  width: 100%;
+}
+
+input[type="checkbox"] {
+  transform: scale(1.2);  /* Enlarges the checkbox */
+  cursor: pointer;
+  margin: 0;  /* Ensure no extra margin is applied to the checkbox */
+}
+
+
+button {
+  display: block;
+  margin: 20px auto;
+  padding: 12px 20px;
+  font-size: 16px;
+  background: #4a3aff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* button:hover:not(:disabled) {
+  /* background: #3a2dcc; */ 
+input,
+  textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
