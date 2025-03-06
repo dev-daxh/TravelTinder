@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./loginT&C.css";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';  // Import ToastContainer and toast
+import { Bounce } from 'react-toastify'; // Import Bounce transition
 
 const LoginTerms = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -8,16 +10,28 @@ const LoginTerms = () => {
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
+
   const navigate = useNavigate();
+  
   const handleAccept = () => {
     if (isChecked) {
-      alert("You have accepted the Terms and Conditions.");
-      navigate('/profile');
-      // Proceed to the next step (e.g., navigate to another page)
+      toast.success('Success', {
+        position: "top-right",
+        autoClose: 1700,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,  // Use the Bounce transition here
+        onClose: () => navigate('/profile-setup'),  // Navigate after the toast closes
+      });
     } else {
       alert("Please agree to the Terms and Conditions before continuing.");
     }
   };
+  
 
   return (
     <div className="terms-container">
@@ -61,6 +75,7 @@ const LoginTerms = () => {
         <button onClick={handleAccept} disabled={!isChecked}>
           Accept and Continue
         </button>
+        <ToastContainer />  {/* Place the ToastContainer here */}
       </div>
     </div>
   );

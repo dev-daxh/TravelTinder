@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./auth.css";
+import { ToastContainer, toast } from 'react-toastify';  // Import ToastContainer and toast
+import { Bounce } from 'react-toastify'; // Import Bounce transition
 
 const AuthPage = () => {
   const [email, setEmail] = useState(""); // Changed phone to email
@@ -28,22 +30,49 @@ const AuthPage = () => {
   // Handle Continue button click
   const handleContinue = async () => {
     console.log(`Email ${email} submitted!`);
-
+  
     // Simulate OTP sending logic (API call or something else)
     try {
+      toast.success('OTP sent successfully!', {
+        position: "top-right",
+        autoClose: 1700, // Duration for toast to stay
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,  // Use the Bounce transition here
+        onClose: () => {
+          // Once the toast closes, show the OTP input card
+          setShowOtpCard(true);  // Show OTP input card
+        },
+      });
+  
+      // Simulating an API call
       const response = await axios.post("http://localhost:3001/api/auth/send-otp", { email });
       console.log("Message ID:", response.data.messageId); // Log messageId to console
-      console.log("OTP:", response.data.otp); // Log messageId to console
-
+      console.log("OTP:", response.data.otp); // Log OTP to console
+  
       setSentOtp(response.data.otp); // Store the sent OTP for later verification
-      setShowOtpCard(true); // Show OTP input card
     } catch (error) {
-      console.error("Error sending OTP:", error);
+      toast.error('Error sending OTP(Contact to developer)', {
+        position: "top-right",
+        autoClose: 1700, // Duration for toast to stay
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,  // Use the Bounce transition here
+      });
     }
-
+  
     setEmail(""); // Clear the email input
     setIsButtonEnabled(false); // Disable button until new valid email is entered
   };
+  
 
   const handleGoogleAuth = () => {
     const googleAuthURL = "http://localhost:3001/api/auth/google";
@@ -93,17 +122,53 @@ const AuthPage = () => {
     if (otp.length === 6) {
       // Compare both values (ensure both are strings and trim any whitespace)
       if (String(otp).trim() === String(sentOtp).trim()) {
-        alert("OTP verified successfully!");
         // Proceed to next step (e.g., redirect or other actions)
-
+        try {
+          toast.success('OTP verifired !', {
+            position: "top-right",
+            autoClose: 1700, // Duration for toast to stay
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,  // Use the Bounce transition here
+            onClose: () => {
+              // Once the toast closes, show the OTP input card
+              navigate('/terms');
+            },
+          });
+        } catch (error) {
+          console.error("Error sending OTP:", error);
+        }
         // Check in db for existing user 
         // If not, then profile setup
-        navigate('/terms');
       } else {
-        alert("Invalid OTP. Please try again.");
+        toast.error('Invalid OTP. Please try again.', {
+          position: "top-right",
+          autoClose: 1700, // Duration for toast to stay
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,  // Use the Bounce transition here
+        });
       }
     } else {
-      alert("Please enter a valid 6-digit OTP.");
+      toast.error('Please enter a valid 6-digit OTP.', {
+        position: "top-right",
+        autoClose: 1700, // Duration for toast to stay
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,  // Use the Bounce transition here
+      });
     }
   };
 
@@ -171,6 +236,8 @@ const AuthPage = () => {
           By proceeding, you agree to Travel Tinder’s{" "}
           <a href="#">Privacy Policy</a>, <a href="#">T&Cs</a>.
         </p>
+                <ToastContainer />  {/* Place the ToastContainer here */}
+        
       </div>
     </div>
   );
