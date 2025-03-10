@@ -31,3 +31,4 @@ app.use('/api/user', userRoute); // Ensure the /api/user route is correctly mapp
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+

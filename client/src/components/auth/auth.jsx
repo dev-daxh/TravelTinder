@@ -97,7 +97,7 @@ const AuthPage = () => {
       setTimeout(() => newWindow?.close(), 500);
   
       // Redirect to /profile
-      window.location.href = "/profile"; 
+      window.location.href = "/profile-setup"; 
     });
   };
   

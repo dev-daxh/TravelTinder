@@ -1,0 +1,67 @@
+.form-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.form-wrapper {
+  width: 1200px;
+  max-width: 900px;
+  padding: 10px;
+  background-color: (163 168 173 / 4%);
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.preference-card {
+  margin-bottom: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.card-description {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 16px;
+}
+
+.chip-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  margin: 4px;
+}
+
+.switch-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 8px 0;
+}
+
+.next-button {
+  margin-top: 20px;
+  background-color: #3f51b5;
+  color: white;
+  text-transform: none;
+  font-weight: bold;
+}
+
+.next-button:hover {
+  background-color: #303f9f;
+}

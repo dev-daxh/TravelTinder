@@ -1,19 +1,26 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./profilePer.css";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import TravelPreferencesForm from '../Prefrence/phoneAuth'; // import the new form
+import TravelPreferencesFormV2 from "../Prefrence/travelperfrenceV2";
 
 const ProfileSetup = () => {
   const [step, setStep] = useState(1);
   const [progress, setProgress] = useState(0);
   const [formData, setFormData] = useState({
-    firstName: "", lastName: "", dob: "", gender: "", bio: "",
-    profilePicture: null, phone: "", email: "", aadharNumber: "", aadharFile: null,
-    emergencyContact: "", country: "", city: "", languages: "",
-    travelInterests: "", lookingFor: "", instagram: "", facebook: "", twitter: ""
+    firstName: "", lastName: "", dob: "", age:"",gender: "", bio: "",
+    profilePicture: null, phone: "", aadharNumber: "", aadharFile: null,
+    emergencyContacts: [
+      { name: "", phone: "" }, // Emergency Contact 1
+      { name: "", phone: "" }  // Emergency Contact 2
+    ],
+    travelPreferencesv1: {}, // This will store travel preferences,
+    travelPreferencesv2: {} // This will store travel preferences
+
   });
 
   const calculateAge = (dob) => {
@@ -29,21 +36,74 @@ const ProfileSetup = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-    updateProgress();
-  };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setFormData({ ...formData, profilePicture: reader.result });
-        updateProgress();
-      };
-      reader.readAsDataURL(file);
+  
+    // Check if the input field belongs to the emergency contacts
+    if (name.includes("emergencyContact")) {
+      const contactIndex = name.includes("1") ? 0 : 1; // Check if it's the first or second emergency contact field
+      const field = name.includes("Name") ? "name" : "phone"; // Determine whether the field is for name or phone
+  
+      // Update the specific emergency contact
+      const updatedEmergencyContacts = [...formData.emergencyContacts];
+      updatedEmergencyContacts[contactIndex][field] = value;
+  
+      setFormData({
+        ...formData,
+        emergencyContacts: updatedEmergencyContacts,
+      });
+    } else {
+      setFormData({ ...formData, [name]: value });
     }
   };
+  
+
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+  
+    const userEmail = formData.email; // Assuming you have user's email in state
+    const fileExtension = file.name.split('.').pop(); // Get file extension
+    const newFileName = `${userEmail}.${fileExtension}`; // Rename file
+  
+    const reader = new FileReader();
+    reader.readAsDataURL(file); // Convert file to Base64
+    reader.onloadend = async () => {
+      const base64Image = reader.result;
+      localStorage.setItem("profileImage", base64Image); // Store in localStorage
+      setFormData((prevData) => ({ ...prevData, profilePicture: base64Image }));
+
+      const formDataUpload = new FormData();
+      formDataUpload.append("image", file, newFileName); // Upload with new filename
+  
+      // try {
+      //   const response = await axios.post(
+      //     "http://localhost:3001/api/user/upload-img",
+      //     formDataUpload,
+      //     { headers: { "Content-Type": "multipart/form-data" } }
+      //   );
+  
+      //   if (response.status === 200) {
+      //     const imageUrl = response.data.imageUrl; // Backend should return URL
+      //     setFormData({ ...formData, profilePicture: imageUrl });
+      //     toast.success("Image uploaded successfully!");
+      //   } else {
+      //     toast.error("Failed to upload image. Please try again.");
+      //   }
+      // } catch (error) {
+      //   toast.error("Error uploading image.");
+      //   console.error("Upload Error:", error);
+      // }
+    };
+  };
+
+  useEffect(() => {
+    const storedImage = localStorage.getItem("profileImage");
+    if (storedImage && formData) {  // Ensure formData exists
+      setFormData(prevData => ({ ...prevData, profilePicture: storedImage }));
+    }
+  }, []);
+  
+  
+  
 
   const handleGenderSelect = (gender) => {
     setFormData({ ...formData, gender });
@@ -52,7 +112,7 @@ const ProfileSetup = () => {
 
   const updateProgress = () => {
     const filledFields = Object.values(formData).filter(val => val !== "" && val !== null).length;
-    const totalFields = 15; // Updated field count
+    const totalFields = 15; 
     const newProgress = Math.round((filledFields / totalFields) * 100);
     setProgress(newProgress);
   };
@@ -70,13 +130,33 @@ const ProfileSetup = () => {
       setProgress(progress - 25);
     }
   };
-
+  const validateForm = () => {
+    const { firstName, lastName, dob, gender, bio, aadharNumber } = formData;
+  
+    // Check if all required fields are filled
+    if (!firstName || !lastName || !dob || !gender || !bio || !aadharNumber) {
+      toast.error("Please fill out all required fields.");
+      return false;
+    }
+  
+    return true;
+  };
+  
   const handleSubmit = async () => {
     const age = calculateAge(formData.dob);
     if (age < 18) {
       toast.error("You must be at least 18 years old to register.");
       return;
     }
+    setFormData((prevData) => ({
+      ...prevData,
+      age: age  // Add the age field to the formData state
+    }));
+    
+    if (!validateForm()) {
+      return; // Stop submission if validation fails
+    }
+    console.log(formData);
     try {
       const response = await axios.post("http://localhost:3001/api/user/create-user", formData);
       if (response.status === 201) {
@@ -89,7 +169,7 @@ const ProfileSetup = () => {
 
   const handlePhoneChange = (value) => {
     setFormData({ ...formData, phone: value });
-    updateProgress(); // Ensure progress is updated when phone number changes
+    updateProgress();
   };
 
   return (
@@ -101,15 +181,23 @@ const ProfileSetup = () => {
       <h1>Profile Setup</h1>
       <p className="subtitle">Step {step} of 4</p>
       <div className="avatar-container">
-        <label htmlFor="profile-upload" className="avatar">
-          {formData.profilePicture ? (
-            <img src={formData.profilePicture} alt="Profile" className="profile-image" />
-          ) : (
-            <i className="user-icon"></i>
-          )}
-        </label>
-        <input id="profile-upload" type="file" accept="image/*" style={{ display: 'none' }} onChange={handleFileChange} />
-      </div>
+  <label htmlFor="profile-upload" className="avatar">
+    {formData.profilePicture ? (
+      <img src={formData.profilePicture} alt="Profile" className="profile-image" />
+    ) : (
+      <i className="user-icon"></i> // Default icon or placeholder
+    )}
+  </label>
+  <input 
+    id="profile-upload" 
+    type="file" 
+    accept="image/*" 
+    style={{ display: 'none' }} 
+    onChange={handleFileChange} 
+  />
+</div>
+
+
 
       {step === 1 && (
         <div className="form-section">
@@ -130,38 +218,84 @@ const ProfileSetup = () => {
 
       {step === 2 && (
         <div className="form-section">
-          <h2>Identity Verification</h2>
-          <PhoneInput
-            country={"in"}
-            value={formData.phone}
-            onChange={handlePhoneChange} // Handle phone change
-            inputClass="phone-input"
-            placeholder="Phone Number*"
-          />
-          <input type="email" name="email" placeholder="Email (Optional)" value={formData.email} onChange={handleInputChange} />
-          <input type="text" name="aadharNumber" placeholder="Aadhar Number*" value={formData.aadharNumber} onChange={handleInputChange} />
-          <input type="file" name="aadharFile" onChange={handleFileChange} />
-          <input type="text" name="emergencyContact" placeholder="Emergency Contact (Optional)" value={formData.emergencyContact} onChange={handleInputChange} />
-        </div>
+        <h2>Identity Verification</h2>
+        <PhoneInput
+          country={"in"}
+          value={formData.phone}
+          onChange={handlePhoneChange}
+          inputClass="phone-input"
+          placeholder="Phone Number*"
+        />
+        <input 
+          type="text" 
+          name="aadharNumber" 
+          placeholder="Aadhar Number*" 
+          value={formData.aadharNumber} 
+          onChange={handleInputChange} 
+        />
+        <p className="aadhar-p">Upload aadhar front page
+          <a href="https://strapi-cdn.indmoney.com/cdn-cgi/image/quality=80,format=auto,metadata=copyright,width=700/https://strapi-cdn.indmoney.com/medium_aadhaar_card_0ae45bd73d.webp" target="_blank" rel="noopener noreferrer">
+            (View Example)
+          </a>
+        </p>
+        <input 
+          type="file" 
+          name="aadharFile" 
+          placeholder="Upload aadhar front page" 
+          onChange={handleFileChange} 
+        />
+        
+        
+        <h3>Emergency Contacts (Optional)</h3>
+<input
+  type="text"
+  name="emergencyContact1Name"
+  placeholder="Emergency Contact 1 Name"
+  value={formData.emergencyContacts[0]?.name || ""}
+  onChange={handleInputChange}
+/>
+
+<PhoneInput
+          country={"in"}
+          value={formData.emergencyContacts[0]?.phone||""}
+          // onChange={handlePhoneChange}
+          inputClass="phone-input"
+          placeholder="Phone Number 1"
+        />
+
+<input
+  type="text"
+  name="emergencyContact2Name"
+  placeholder="Emergency Contact 2 Name"
+  value={formData.emergencyContacts[1]?.name || ""}
+  onChange={handleInputChange}
+/>
+<PhoneInput
+          country={"in"}
+          value={formData.emergencyContacts[1]?.phone||""}
+          // onChange={handlePhoneChange}
+          inputClass="phone-input"
+          placeholder="Phone Number 2"
+        />
+
+      </div>
       )}
 
       {step === 3 && (
         <div className="form-section">
           <h2>Travel Preferences</h2>
-          <input type="text" name="country" placeholder="Country" value={formData.country} onChange={handleInputChange} />
-          <input type="text" name="city" placeholder="City" value={formData.city} onChange={handleInputChange} />
-          <input type="text" name="languages" placeholder="Languages Spoken" value={formData.languages} onChange={handleInputChange} />
-          <input type="text" name="travelInterests" placeholder="Travel Interests" value={formData.travelInterests} onChange={handleInputChange} />
-          <input type="text" name="lookingFor" placeholder="Looking For (Travel Buddies, etc.)" value={formData.lookingFor} onChange={handleInputChange} />
+          <TravelPreferencesForm formData={formData} setFormData={setFormData} />
         </div>
       )}
 
       {step === 4 && (
         <div className="form-section">
-          <h2>Social Links</h2>
-          <input type="text" name="instagram" placeholder="Instagram" value={formData.instagram} onChange={handleInputChange} />
+          <h2>Travel Preferences</h2>
+          {/* <input type="text" name="instagram" placeholder="Instagram" value={formData.instagram} onChange={handleInputChange} />
           <input type="text" name="facebook" placeholder="Facebook" value={formData.facebook} onChange={handleInputChange} />
-          <input type="text" name="twitter" placeholder="Twitter" value={formData.twitter} onChange={handleInputChange} />
+          <input type="text" name="twitter" placeholder="Twitter" value={formData.twitter} onChange={handleInputChange} /> */}
+         
+          <TravelPreferencesFormV2 formData={formData} setFormData={setFormData} />
         </div>
       )}
 
@@ -176,3 +310,4 @@ const ProfileSetup = () => {
 };
 
 export default ProfileSetup;
+
