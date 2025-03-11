@@ -1,7 +1,8 @@
 # Node modules
 node_modules/
 .env
-server/config/travel-tinder-755m35-firebase-adminsdk-fbsvc-7c6cf2b4b1.json# Logs
+config/travel-tinder-755m35-firebase-adminsdk-fbsvc-7c6cf2b4b1.json
+# Logs
 *.log
 logs/
 npm-debug.lo
