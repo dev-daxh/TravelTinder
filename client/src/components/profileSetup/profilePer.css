@@ -55,7 +55,7 @@
 .profile-image {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Ensures image fits properly inside the circle */
+  object-fit:contain; /* Ensures image fits properly inside the circle */
   border-radius: 50%;
 }
 
@@ -84,7 +84,49 @@ input, textarea {
   font-size: 14px;
   border: 1px solid #ddd;
   border-radius: 5px;
+  margin-bottom: 10px;
+
 }
+
+/* Style the 'Add Emergency Contact' button */
+.add-contact-btn {
+  font-size: 12px; /* Smaller font size */
+  padding: 5px 10px; /* Smaller padding */
+  background-color: #4CAF50; /* Green background color */
+  color: white; /* White text */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  justify-content: center;
+  align-items: center;
+}
+
+/* Add a hover effect */
+.add-contact-btn:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+.remove-contact-btn {
+  font-size: 12px; /* Smaller font size */
+  padding: 5px 10px; /* Smaller padding */
+  background-color: #ea361b; /* Green background color */
+  color: white; /* White text */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  justify-content: center;
+  align-items: center;
+}
+
+/* Add a hover effect */
+.remove-contact-btn:hover {
+  background-color: #e71f01; /* Darker green on hover */
+}
+
+/* Ensure the parent container has 'relative' positioning */
+.emergency-contact-section {
+  position: relative;
+}
+
 .input .react-tel-input .form-control{
   position: relative;
     font-size: 14px;
@@ -155,4 +197,173 @@ input, textarea {
 
 .navigation-buttons button:hover {
   background-color: #3a2dcc;
+}
+
+.emergency-contact-section{
+  gap: 10px;
+}
+@media (max-width: 768px) {
+  /* Profile Container */
+  .profile-container {
+    max-width: 100%;
+    margin: 30px auto;
+    padding: 15px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    text-align: center;
+    position: relative;
+  }
+
+  /* Progress Bar */
+  .progress-bar-container {
+    width: 100%;
+    height: 8px;
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+
+  .progress-bar {
+    height: 8px;
+    background-color: #4caf50;
+    width: 0;
+    transition: width 0.5s ease-in-out;
+  }
+
+  /* Avatar Styles */
+  .avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    background: #ffffff;
+    border-radius: 50%;
+    margin: 10px auto;
+  }
+
+  .avatar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #ccc;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    margin: 20px auto; /* Centering the avatar */
+  }
+
+  .profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ensures image fits properly inside the circle */
+    border-radius: 50%;
+  }
+
+  .user-icon {
+    width: 50px;
+    height: 50px;
+    background: url("https://cdn-icons-png.flaticon.com/512/847/847969.png") no-repeat center;
+    background-size: contain;
+  }
+
+  /* Form Sections */
+  .form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  h1, h2 {
+    color: #222;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+
+  .input .react-tel-input .form-control {
+    position: relative;
+    font-size: 14px;
+    letter-spacing: .01rem;
+    margin-left: 0;
+    background: #FFFFFF;
+    border: 1px solid #CACACA;
+    border-radius: 5px;
+    line-height: 25px;
+    height: 35px;
+    width: 100%; /* Updated width to make it responsive */
+    outline: none;
+  }
+
+  .aadhar-p {
+    margin-right: 180px;
+    color: red;
+    font-style: italic;
+  }
+
+  /* Gender Buttons */
+  .gender-options {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap; /* Ensures buttons wrap on smaller screens */
+    justify-content: center; /* Centers the buttons */
+  }
+
+  .gender-btn {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    background: #f9f9f9;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    color: black;
+    transition: 0.3s;
+  }
+
+  .gender-btn.selected {
+    background: #00b4d8;
+    color: white;
+    border-color: #00b4d8;
+  }
+
+  .gender-btn:hover {
+    background: #e0f7fa;
+    color: rgb(0, 0, 0);
+  }
+
+  /* Navigation Buttons */
+  .navigation-buttons {
+    display: flex;
+    flex-direction: column-reverse; /* Stack buttons vertically on small screens */
+    gap: 10px;
+  }
+
+  .navigation-buttons button {
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    background-color: #4a3aff;
+    color: white;
+    width: 100%; /* Ensures full width on mobile */
+  }
+
+  .navigation-buttons button:hover {
+    background-color: #3a2dcc;
+  }
 }

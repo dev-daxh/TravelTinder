@@ -1,28 +1,73 @@
 import React, { useState,useEffect } from "react";
 import "./profilePer.css";
 import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import TravelPreferencesForm from '../Prefrence/phoneAuth'; // import the new form
 import TravelPreferencesFormV2 from "../Prefrence/travelperfrenceV2";
+import { ToastContainer, toast } from 'react-toastify';  // Import ToastContainer and toast
+import { Bounce } from 'react-toastify'; // Import Bounce transition
+import { useNavigate } from "react-router-dom";
 
 const ProfileSetup = () => {
   const [step, setStep] = useState(1);
   const [progress, setProgress] = useState(0);
   const [formData, setFormData] = useState({
-    firstName: "", lastName: "", dob: "", age:"",gender: "", bio: "",
+    firstName: "", lastName: "",email:"", dob: "", age:"",gender: "", bio: "",
     profilePicture: null, phone: "", aadharNumber: "", aadharFile: null,
-    emergencyContacts: [
-      { name: "", phone: "" }, // Emergency Contact 1
-      { name: "", phone: "" }  // Emergency Contact 2
-    ],
+    emergencyContacts: [{ name: "", phone: "" }, // Emergency Contact 1
+      { name: "", phone: "" } ], // Emergency Contact 2] ,// Initialize with one emergency contact
     travelPreferencesv1: {}, // This will store travel preferences,
     travelPreferencesv2: {} // This will store travel preferences
 
   });
+    const navigate = useNavigate();
+  
+  
+// Retrieve the email from localStorage
+useEffect(() => {
+  const userEmail = localStorage.getItem('email');
 
+  if (!userEmail) {
+    toast.error('Authentication failed! No email found.', {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,  // Use the Bounce transition here
+      onClose: () => navigate('/auth-main'),  // Navigate after the toast closes
+    });
+  } else {
+    console.log('User email:', userEmail);  // Optionally log the email
+    setFormData((prevData) => ({
+      ...prevData,
+      email: userEmail
+    }));  }
+}, []); // Empty dependency array ensures this runs once on component mount
+useEffect(() => {
+  const handleBeforeUnload = (event) => {
+    // Here you can check if the user is filling out the form
+    // If they are, clear the localStorage (in this case it clears always on unload)
+    localStorage.clear();
+    console.log('LocalStorage cleared on page unload');
+    
+    // Optional: You can also display a warning message to prevent unsaved changes
+    event.returnValue = 'Are you sure you want to leave?'; // Standard warning
+  };
+
+  // Add event listener to handle page unload
+  window.addEventListener('beforeunload', handleBeforeUnload);
+
+  return () => {
+    // Cleanup event listener when the component unmounts
+    window.removeEventListener('beforeunload', handleBeforeUnload);
+  };
+}, []);
   const calculateAge = (dob) => {
     const birthDate = new Date(dob);
     const today = new Date();
@@ -56,44 +101,178 @@ const ProfileSetup = () => {
   };
   
 
-  const handleFileChange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-  
-    const userEmail = formData.email; // Assuming you have user's email in state
-    const fileExtension = file.name.split('.').pop(); // Get file extension
-    const newFileName = `${userEmail}.${fileExtension}`; // Rename file
-  
+  //handel img 
+  const handleProfileImageUploadToLocal = (file) => {
     const reader = new FileReader();
     reader.readAsDataURL(file); // Convert file to Base64
-    reader.onloadend = async () => {
+    reader.onloadend = () => {
       const base64Image = reader.result;
       localStorage.setItem("profileImage", base64Image); // Store in localStorage
       setFormData((prevData) => ({ ...prevData, profilePicture: base64Image }));
-
-      const formDataUpload = new FormData();
-      formDataUpload.append("image", file, newFileName); // Upload with new filename
-  
-      // try {
-      //   const response = await axios.post(
-      //     "http://localhost:3001/api/user/upload-img",
-      //     formDataUpload,
-      //     { headers: { "Content-Type": "multipart/form-data" } }
-      //   );
-  
-      //   if (response.status === 200) {
-      //     const imageUrl = response.data.imageUrl; // Backend should return URL
-      //     setFormData({ ...formData, profilePicture: imageUrl });
-      //     toast.success("Image uploaded successfully!");
-      //   } else {
-      //     toast.error("Failed to upload image. Please try again.");
-      //   }
-      // } catch (error) {
-      //   toast.error("Error uploading image.");
-      //   console.error("Upload Error:", error);
-      // }
     };
   };
+  
+  const handleProfileImageUploadApi = async (file, userEmail) => {
+    const fileExtension = file.name.split('.').pop(); // Get file extension
+    const newFileName = `${userEmail}_profile.${fileExtension}`; // Renaming file for uniqueness
+  
+    const formDataUpload = new FormData();
+    formDataUpload.append("image", file, newFileName); // Upload with new filename
+  
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/api/user/upload-profile",
+        formDataUpload,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
+  
+      if (response.status === 200) {
+        const imageUrl = response.data.imageUrl; // Backend should return URL
+        // Update formData with the URL of the profile image
+        setFormData((prevData) => ({ ...prevData, profilePicture: imageUrl }));
+        toast.success("Profile image uploaded successfully!");
+      } else {
+        toast.error("Failed to upload profile image. Please try again.");
+      }
+    } catch (error) {
+      toast.error("Error uploading profile image.");
+      console.error("Upload Error:", error);
+    }
+};
+
+  
+  const handleAadharImageUploadToLocal = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file); // Convert file to Base64
+    reader.onloadend = () => {
+      const base64Image = reader.result;
+      localStorage.setItem("aadharImage", base64Image); // Store in localStorage
+      setFormData((prevData) => ({ ...prevData, aadharFile: base64Image }));
+    };
+  };
+  
+  const handleAadharImageUploadApi = async (file, userEmail) => {
+    const fileExtension = file.name.split('.').pop(); // Get file extension
+    const newFileName = `${userEmail}_aadhar_${Date.now()}.${fileExtension}`; // Renaming file for uniqueness
+  
+    const formDataUpload = new FormData();
+    formDataUpload.append("image", file, newFileName); // Upload with new filename
+  
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/api/user/upload-aadhar",
+        formDataUpload,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
+  
+      if (response.status === 200) {
+        const imageUrl = response.data.imageUrl; // Backend should return URL
+        // Update formData with the URL of the Aadhar image
+        setFormData((prevData) => ({ ...prevData, aadharFile: imageUrl }));
+        toast.success("Aadhar image uploaded successfully!");
+      } else {
+        toast.error("Failed to upload Aadhar image. Please try again.");
+      }
+    } catch (error) {
+      toast.error("Error uploading Aadhar image.");
+      console.error("Upload Error:", error);
+    }
+};
+
+  
+  // Function to handle profile image upload
+  const handleProfileFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+  
+    // Check file size (1 MB limit)
+    const MAX_SIZE = 1 * 1024 * 1024; // 1MB in bytes
+    if (file.size > MAX_SIZE) {
+      toast.error("File size exceeds 1 MB. Please upload a smaller image.");
+      return;
+    }
+  
+    const userEmail = formData.email; // Assuming you have user's email in state
+  
+    // Handle profile image local storage and API upload
+    handleProfileImageUploadToLocal(file);
+    await handleProfileImageUploadApi(file, userEmail);  // Call API for Profile Image Upload
+  };
+  
+  // Function to handle Aadhar image upload
+  const handleAadharFileChange = async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  // Check file size (1 MB limit)
+  const MAX_SIZE = 1 * 1024 * 1024; // 1MB in bytes
+  if (file.size > MAX_SIZE) {
+    toast.error("Aadhar image size exceeds 1 MB. Please upload a smaller image.");
+    return;
+  }
+
+  const userEmail = formData.email; // Assuming you have user's email in state
+
+  // Handle Aadhar image local storage and API upload
+  handleAadharImageUploadToLocal(file);
+  await handleAadharImageUploadApi(file, userEmail);  // Call API for Aadhar Image Upload
+};
+  
+  
+
+
+
+  const handleAadharChange = (e) => {
+    const { name, value } = e.target;
+
+    // Only allow digits and limit to 12 characters
+    if (/^\d{0,12}$/.test(value)) {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
+  };
+  
+
+  // const handleFileChange = async (e) => {
+  //   const file = e.target.files[0];
+  //   if (!file) return;
+  
+  //   const userEmail = formData.email; // Assuming you have user's email in state
+  //   const fileExtension = file.name.split('.').pop(); // Get file extension
+  //   const newFileName = `${userEmail}.${fileExtension}`; // Rename file
+  
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(file); // Convert file to Base64
+  //   reader.onloadend = async () => {
+  //     const base64Image = reader.result;
+  //     localStorage.setItem("profileImage", base64Image); // Store in localStorage
+  //     setFormData((prevData) => ({ ...prevData, profilePicture: base64Image }));
+
+  //     const formDataUpload = new FormData();
+  //     formDataUpload.append("image", file, newFileName); // Upload with new filename
+  
+  //     try {
+  //       const response = await axios.post(
+  //         "http://localhost:3001/api/user/upload-img",
+  //         formDataUpload,
+  //         { headers: { "Content-Type": "multipart/form-data" } }
+  //       );
+  
+  //       if (response.status === 200) {
+  //         const imageUrl = response.data.imageUrl; // Backend should return URL
+  //         setFormData({ ...formData, profilePicture: imageUrl });
+  //         toast.success("Image uploaded successfully!");
+  //       } else {
+  //         toast.error("Failed to upload image. Please try again.");
+  //       }
+  //     } catch (error) {
+  //       toast.error("Error uploading image.");
+  //       console.error("Upload Error:", error);
+  //     }
+  //   };
+  // };
 
   useEffect(() => {
     const storedImage = localStorage.getItem("profileImage");
@@ -111,11 +290,12 @@ const ProfileSetup = () => {
   };
 
   const updateProgress = () => {
-    const filledFields = Object.values(formData).filter(val => val !== "" && val !== null).length;
-    const totalFields = 15; 
-    const newProgress = Math.round((filledFields / totalFields) * 100);
+    const totalFields = Object.keys(formData).length;
+    const filledFields = Object.values(formData).filter(val => val && val !== "").length;
+    const newProgress = totalFields > 0 ? Math.round((filledFields / totalFields) * 100) : 0;
     setProgress(newProgress);
   };
+  
 
   const nextStep = () => {
     if (step < 4) {
@@ -141,31 +321,65 @@ const ProfileSetup = () => {
   
     return true;
   };
-  
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    
+    // Calculate the age from the date of birth
     const age = calculateAge(formData.dob);
     if (age < 18) {
       toast.error("You must be at least 18 years old to register.");
       return;
     }
+  
+    // Update the age field in formData
     setFormData((prevData) => ({
       ...prevData,
-      age: age  // Add the age field to the formData state
+      age: age,
     }));
-    
+  
+    // Validate the form before submission
     if (!validateForm()) {
       return; // Stop submission if validation fails
     }
-    console.log(formData);
+  
+    // Check if the profile picture is uploaded
+    if (!formData.profilePicture) {
+      toast.error("Please upload a profile picture.");
+      return;
+    }
+  
+    // Check if the Aadhar image is uploaded
+    if (!formData.aadharFile) {
+      toast.error("Please upload your Aadhar image.");
+      return;
+    }
+    console.log("emergencyContacts:", formData.emergencyContacts); // Log emergencyContacts to check its value
+    if (formData.emergencyContacts && formData.emergencyContacts[0]) {
+      console.log("First contact:", formData.emergencyContacts[0]);
+      console.log("First contact name:", formData.emergencyContacts[0].name);
+    } else {
+      console.log("Emergency contacts are undefined or empty.");
+    }
+    console.log("Form Data before submission:", formData);
+    // If both images are available, proceed with the image upload API calls
     try {
+      const userEmail = formData.email; // Get the email from formData
+      // At this point, the image URLs have been set in formData, so now we can proceed to create the user
+  
+      console.log("Form Data before submission:", formData);
+  
+      // Make the API call to create the user
       const response = await axios.post("http://localhost:3001/api/user/create-user", formData);
+  
       if (response.status === 201) {
         toast.success("Profile created successfully!");
+        // Optionally, reset the form data or redirect the user after successful submission
       }
     } catch (error) {
       toast.error("Error saving profile. Please try again.");
+      console.error("Error during profile creation:", error);
     }
   };
+  
 
   const handlePhoneChange = (value) => {
     setFormData({ ...formData, phone: value });
@@ -193,7 +407,7 @@ const ProfileSetup = () => {
     type="file" 
     accept="image/*" 
     style={{ display: 'none' }} 
-    onChange={handleFileChange} 
+    onChange={handleProfileFileChange} 
   />
 </div>
 
@@ -226,28 +440,51 @@ const ProfileSetup = () => {
           inputClass="phone-input"
           placeholder="Phone Number*"
         />
-        <input 
-          type="text" 
-          name="aadharNumber" 
-          placeholder="Aadhar Number*" 
-          value={formData.aadharNumber} 
-          onChange={handleInputChange} 
-        />
+       <div>
+      <input
+        type="text"
+        name="aadharNumber"
+        placeholder="Aadhar Number*"
+        value={formData.aadharNumber}
+        onChange={handleAadharChange}
+      />
+      {/* Aadhar number should be exactly 12 digits */}
+      {formData.aadharNumber.length !== 12 && formData.aadharNumber !== "" && (
+        <p style={{ color: "red" }}>Aadhar number must be exactly 12 digits.</p>
+      )}
+    </div>
         <p className="aadhar-p">Upload aadhar front page
           <a href="https://strapi-cdn.indmoney.com/cdn-cgi/image/quality=80,format=auto,metadata=copyright,width=700/https://strapi-cdn.indmoney.com/medium_aadhaar_card_0ae45bd73d.webp" target="_blank" rel="noopener noreferrer">
             (View Example)
           </a>
         </p>
         <input 
-          type="file" 
-          name="aadharFile" 
-          placeholder="Upload aadhar front page" 
-          onChange={handleFileChange} 
-        />
+      type="file" 
+      name="aadharFile" 
+      placeholder="Upload Aadhar Front Page" 
+      onChange={handleAadharFileChange} 
+    />
+    
+   {/* Show Aadhar image if uploaded */}
+{formData.aadharFile && (
+  <div>
+    <p>Aadhar Image Uploaded:</p>
+    {/* Link that opens the image in a new tab */}
+    <a href={formData.aadharFile} target="_blank" rel="noopener noreferrer">
+      {/* Display the image in a smaller preview */}
+      <img
+        src={formData.aadharFile}
+        alt="Uploaded Aadhar"
+        style={{ maxWidth: '200px', maxHeight: '150px', cursor: 'pointer' }}
+      />
+    </a>
+  </div>
+)}
+
         
         
         <h3>Emergency Contacts (Optional)</h3>
-<input
+        <input
   type="text"
   name="emergencyContact1Name"
   placeholder="Emergency Contact 1 Name"
@@ -256,12 +493,13 @@ const ProfileSetup = () => {
 />
 
 <PhoneInput
-          country={"in"}
-          value={formData.emergencyContacts[0]?.phone||""}
-          // onChange={handlePhoneChange}
-          inputClass="phone-input"
-          placeholder="Phone Number 1"
-        />
+  country={"in"}
+  name="emergencyContact1Phone"
+  value={formData.emergencyContacts[0]?.phone || ""}
+  inputClass="phone-input"
+  placeholder="Phone Number 1"
+  onChange={(value) => handleInputChange({ target: { name: 'emergencyContact1Phone', value } })}
+/>
 
 <input
   type="text"
@@ -270,13 +508,16 @@ const ProfileSetup = () => {
   value={formData.emergencyContacts[1]?.name || ""}
   onChange={handleInputChange}
 />
+
 <PhoneInput
-          country={"in"}
-          value={formData.emergencyContacts[1]?.phone||""}
-          // onChange={handlePhoneChange}
-          inputClass="phone-input"
-          placeholder="Phone Number 2"
-        />
+  country={"in"}
+  name="emergencyContact2Phone"
+  value={formData.emergencyContacts[1]?.phone || ""}
+  inputClass="phone-input"
+  placeholder="Phone Number 2"
+  onChange={(value) => handleInputChange({ target: { name: 'emergencyContact2Phone', value } })}
+/>
+
 
       </div>
       )}

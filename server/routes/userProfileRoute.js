@@ -1,5 +1,5 @@
 const express = require("express");
-const {userCreate,getUsers,uploadImage} = require('../controllers/userController');
+const {userCreate,getUsers,uploadProfileImage,uploadAadharImage} = require('../controllers/userController');
 const router = express.Router();
 const multer = require('multer');
 
@@ -7,8 +7,10 @@ const multer = require('multer');
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-router.post('/create', userCreate);
+router.post('/create-user', userCreate);
 router.get('/get-users', getUsers);
-router.post('/upload-img', upload.single('image'), uploadImage); // New Route
+router.post('/upload-aadhar', upload.single('image'), uploadProfileImage); // New Route
+router.post('/upload-profile', upload.single('image'), uploadAadharImage); // New Route
+
 
 module.exports = router;

@@ -8,9 +8,9 @@ const TravelPreferencesForm = ({ formData, setFormData }) => {
   const [travelStyle, setTravelStyle] = useState(travelPreferencesv1.travelStyle || []);
   const [travelCompanion, setTravelCompanion] = useState(travelPreferencesv1.travelCompanion || "");
   const [tripBudget, setTripBudget] = useState(travelPreferencesv1.tripBudget || "");
-  const [accommodation, setAccommodation] = useState(travelPreferencesv1.accommodation || "");
-  const [transport, setTransport] = useState(travelPreferencesv1.transport || "");
-  const [mealPreferences, setMealPreferences] = useState(travelPreferencesv1.mealPreferences || "");
+  const [accommodation, setAccommodation] = useState(travelPreferencesv1.accommodation || []);
+  const [transport, setTransport] = useState(travelPreferencesv1.transport || []);
+  const [mealPreferences, setMealPreferences] = useState(travelPreferencesv1.mealPreferences || []);
   const [activityInterests, setActivityInterests] = useState(travelPreferencesv1.activityInterests || []);
   const [smoker, setSmoker] = useState(travelPreferencesv1.smoker || false);
   const [drinksAlcohol, setDrinksAlcohol] = useState(travelPreferencesv1.drinksAlcohol || false);
@@ -102,6 +102,61 @@ const TravelPreferencesForm = ({ formData, setFormData }) => {
             state: tripBudget,
             setState: setTripBudget,
             multiSelect: false,
+          },
+          {
+            title: "Accommodation",
+            description: "Select your preferred accommodation type",
+            options: [
+              "Hotels",
+              "Hostels",
+              "Homestays",
+              "Camping",
+              "Van Life",
+            ],
+            state: accommodation,
+            setState: setAccommodation,
+            multiSelect: true,
+          },
+          {
+            title: "Transport",
+            description: "Select your preferred mode of transport",
+            options: [
+              "Flights",
+              "Train",
+              "Bus",
+              "Road Trip (Self-drive)",
+            ],
+            state: transport,
+            setState: setTransport,
+            multiSelect: true,
+          },
+          {
+            title: "Meal Preferences",
+            description: "Select your meal preferences",
+            options: [
+              "Vegetarian",
+              "Non-Vegetarian",
+              "Vegan",
+              "Eggterian",
+            ],
+            state: mealPreferences,
+            setState: setMealPreferences,
+            multiSelect: false,
+          },
+          {
+            title: "Activity Interests",
+            description: "Select the activities you are interested in",
+            options: [
+              "Cultural Tours",
+              "Trekking and Hiking",
+              "Scuba Diving",
+              "Nightlife & Parties",
+              "Photography",
+              "Spiritual",
+            ],
+            state: activityInterests,
+            setState: setActivityInterests,
+            multiSelect: true,
           },
         ].map(({ title, description, options, state, setState, multiSelect }) => (
           <div key={title} className="preference-card">
