@@ -1,0 +1,149 @@
+/* Mobile-first styles */
+.aditya-profile {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+}
+
+.app-bar {
+  background-color: #f4f4f4;
+  display: flex;
+  align-items: center;
+  /* padding: 10px 16px; */
+  justify-content: flex-start;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.profile-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-left: 16px;
+}
+
+.profile-container {
+  /* padding: 16px; */
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.cover-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.profile-avatar-container {
+  position: absolute;
+  bottom: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid white;
+}
+
+.profile-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.follow-button,
+.chat-button {
+  position: absolute;
+  /* padding: 8px 16px; */
+  background-color: #333333;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.follow-button {
+  left: 20px;
+}
+
+.chat-button {
+  right: 20px;
+}
+
+.profile-info {
+  padding: 16px;
+  text-align: center;
+}
+
+.name {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.email {
+  font-size: 16px;
+  color: #555;
+}
+
+.stats-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 16px;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #554a4a;
+}
+
+.recent-trips {
+  margin-top: 32px;
+}
+
+.recent-trips-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.show-all-link {
+  font-size: 14px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.trips-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.trips-grid img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}

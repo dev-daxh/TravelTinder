@@ -72,7 +72,7 @@ const LoginTerms = () => {
           <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
           I have read and agree to the Terms and Conditions
         </label>
-        <button onClick={handleAccept} disabled={!isChecked}>
+        <button className="accept" onClick={handleAccept} disabled={!isChecked}>
           Accept and Continue
         </button>
         <ToastContainer />  {/* Place the ToastContainer here */}

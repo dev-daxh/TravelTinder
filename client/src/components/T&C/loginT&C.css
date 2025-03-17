@@ -59,7 +59,7 @@ input[type="checkbox"] {
 }
 
 
-button {
+.accept {
   display: block;
   margin: 20px auto;
   padding: 12px 20px;
@@ -72,7 +72,7 @@ button {
   transition: 0.3s;
 }
 
-button:disabled {
+.accept:disabled {
   background: #ccc;
   cursor: not-allowed;
 }

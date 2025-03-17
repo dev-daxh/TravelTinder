@@ -217,21 +217,25 @@ const getUsers = (req, res) => {
 };
 
 // Upload Image to Cloudinary
+// Cloudinary upload function
+
 const uploadProfileImage = async (req, res) => {
     try {
         if (!req.file) {
             return res.status(400).json({ error: 'No file uploaded' });
         }
 
-        // Get the original file extension and create a unique filename
+        // Get the original file extension
         const fileExtension = req.file.originalname.split('.').pop();
-        const newFileName = `${req.body.userEmail}_profile.${fileExtension}`; // Use the userEmail from the request body for uniqueness
+
+        // Create a unique filename without extension to use as the public_id
+        const newFileName = `${req.body.userEmail}_profile`;  // Remove file extension
 
         // Create a stream to upload the file to Cloudinary
         const uploadStream = cloudinary.uploader.upload_stream(
             {
                 folder: 'uploads', // Define Cloudinary folder
-                public_id: newFileName, // Use the renamed file name
+                public_id: newFileName, // Use the unique file name as the public_id
                 resource_type: 'auto' // Let Cloudinary auto-detect the resource type
             },
             (error, result) => {
@@ -239,8 +243,15 @@ const uploadProfileImage = async (req, res) => {
                     console.error('Cloudinary upload error:', error);
                     return res.status(500).json({ error: 'Upload failed' });
                 }
+                console.log('asset id: '+result.asset_id);
+
                 // Return the image URL from Cloudinary
-                res.json({ success: true, imageUrl: result.secure_url });
+                res.json({
+                    success: true,
+                    imageUrl: result.secure_url, // Image URL from Cloudinary
+                    assetId: result.asset_id      // Asset ID from Cloudinary
+                });
+
             }
         );
 
@@ -251,6 +262,8 @@ const uploadProfileImage = async (req, res) => {
         res.status(500).json({ error: 'Upload failed' });
     }
 };
+
+
 
 const uploadAadharImage = async (req, res) => {
     try {
@@ -258,15 +271,17 @@ const uploadAadharImage = async (req, res) => {
             return res.status(400).json({ error: 'No file uploaded' });
         }
 
-        // Get the original file extension and create a unique filename
+        // Get the original file extension
         const fileExtension = req.file.originalname.split('.').pop();
-        const newFileName = `${req.body.userEmail}_profile.${fileExtension}`; // Use the userEmail from the request body for uniqueness
+
+        // Create a unique filename without extension to use as the public_id
+        const newFileName = `${req.body.userEmail}_profile`;  // Remove file extension
 
         // Create a stream to upload the file to Cloudinary
         const uploadStream = cloudinary.uploader.upload_stream(
             {
                 folder: 'uploads', // Define Cloudinary folder
-                public_id: newFileName, // Use the renamed file name
+                public_id: newFileName, // Use the unique file name as the public_id
                 resource_type: 'auto' // Let Cloudinary auto-detect the resource type
             },
             (error, result) => {
@@ -274,8 +289,13 @@ const uploadAadharImage = async (req, res) => {
                     console.error('Cloudinary upload error:', error);
                     return res.status(500).json({ error: 'Upload failed' });
                 }
+                console.log('asset id: '+result.asset_id);
                 // Return the image URL from Cloudinary
-                res.json({ success: true, imageUrl: result.secure_url });
+                res.json({
+                    success: true,
+                    imageUrl: result.secure_url, // Image URL from Cloudinary
+                    assetId: result.asset_id      // Asset ID from Cloudinary
+                });            
             }
         );
 
@@ -286,6 +306,7 @@ const uploadAadharImage = async (req, res) => {
         res.status(500).json({ error: 'Upload failed' });
     }
 };
+
 
 
 module.exports = {userCreate, getUsers, uploadProfileImage, uploadAadharImage };

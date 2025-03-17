@@ -1,0 +1,166 @@
+SideNav.css
+/* SideNav.css */
+.side-nav {
+  width: 270px;
+  height: 100vh;
+  background-color: #f1f4f8;
+  border-right: 1px solid #e5e7eb;
+  padding: 24px 0 16px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+}
+
+.side-nav.hidden {
+  transform: translateX(-100%);
+}
+
+/* Add styles for the hamburger icon */
+.hamburger-icon {
+  font-size: 24px;
+  cursor: pointer;
+  margin: 16px;
+}
+  .nav-header {
+    padding: 0 16px 16px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-container {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  
+  .logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  
+  .app-name {
+    margin-left: 12px;
+    font-size: 24px;
+    font-weight: 500;
+    color: #15161e;
+  }
+  
+  .user-profile {
+    padding: 0 16px 12px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .avatar-container {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    border: 2px solid #6f61ef;
+    background-color: rgba(148, 137, 245, 0.3);
+    padding: 2px;
+    overflow: hidden;
+  }
+  
+  .avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  
+  .user-info {
+    margin-left: 12px;
+  }
+  
+  .username {
+    font-size: 16px;
+    font-weight: 500;
+    color: #15161e;
+    margin: 0;
+  }
+  
+  .user-email {
+    font-size: 14px;
+    color: #606a85;
+    margin: 4px 0 0;
+  }
+  
+  .divider {
+    height: 2px;
+    background-color: #e5e7eb;
+    margin: 12px 0;
+  }
+  
+  .nav-links {
+    flex: 1;
+    padding: 0 16px;
+  }
+  
+  .section-title {
+    font-size: 14px;
+    color: #606a85;
+    font-weight: 500;
+    margin: 12px 0;
+  }
+  
+  .nav-item {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    margin: 12px 0;
+    border-radius: 12px;
+    background-color: #f1f4f8;
+    cursor: pointer;
+  }
+  
+  .nav-item:hover {
+    background-color: #e5e7eb;
+  }
+  
+  .icon {
+    font-size: 24px;
+    margin-right: 12px;
+  }
+  
+  .link-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: #15161e;
+  }
+  
+  .theme-switcher {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    margin: 16px 0;
+    background-color: #f1f4f8;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+  }
+  
+  .theme-option {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  .theme-option.active {
+    background-color: white;
+    border: 1px solid #e5e7eb;
+  }
+  
+  .theme-text {
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: 4px;
+  }
+  
+  .nav-footer {
+    padding: 16px;
+    display: flex;
+    justify-content: flex-end;
+  }

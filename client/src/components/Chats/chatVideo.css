@@ -1,0 +1,129 @@
+/* Container */
+.video-call-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: black;
+  }
+
+  body{
+    background-color: #f0f0f0;
+    padding-top: 0px;
+  }
+  
+  /* Header */
+  .video-call-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+  }
+
+.icons {
+    width: 74px;
+    height: 74px;
+  }
+  
+  .icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 50%;
+    padding: 2px 0 0 0 ;
+  }
+  
+  .back-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .call-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .call-timer {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px 10px;
+    border-radius: 10px;
+  }
+  
+  .network-status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .network-icon {
+    font-size: 18px;
+  }
+  
+  /* Video Screen */
+  .video-screen {
+    flex-grow: 1;
+    position: relative;
+  }
+  
+  .main-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .small-video {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    width: 100px;
+    height: 140px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .small-video-frame {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Call Controls */
+  .video-call-controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 15px;
+    background: white;
+  }
+  
+  .control-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 22px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .mute {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  .end-call {
+    background: red;
+  }
+  
+  .video, .flip {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  

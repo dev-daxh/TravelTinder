@@ -128,6 +128,8 @@ useEffect(() => {
   
       if (response.status === 200) {
         const imageUrl = response.data.imageUrl; // Backend should return URL
+        const assetId = response.data.assetId;
+        localStorage.setItem('assetIdProfile',assetId);
         // Update formData with the URL of the profile image
         setFormData((prevData) => ({ ...prevData, profilePicture: imageUrl }));
         toast.success("Profile image uploaded successfully!");
@@ -167,6 +169,9 @@ useEffect(() => {
   
       if (response.status === 200) {
         const imageUrl = response.data.imageUrl; // Backend should return URL
+        const assetId = response.data.assetId;
+
+        localStorage.setItem('assetIdAadhar',assetId);
         // Update formData with the URL of the Aadhar image
         setFormData((prevData) => ({ ...prevData, aadharFile: imageUrl }));
         toast.success("Aadhar image uploaded successfully!");

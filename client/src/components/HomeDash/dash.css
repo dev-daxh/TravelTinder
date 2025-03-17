@@ -1,0 +1,158 @@
+.dash-container {
+  padding: 16px;
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(180deg, #3949ab 0%, #1a237e 100%);
+  padding: 24px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  position: relative; /* Position relative for positioning the sidebar icon */
+}
+
+.hero-text {
+  font-size: 30px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  color: white;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.search-input {
+  flex-grow: 1;
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+}
+
+.profile-icon {
+  width: 13%;
+  height: 13%;
+  margin-left: 12px;
+  cursor: pointer;
+}
+
+/* Sidebar Icon */
+.sidebar-icon {
+  position: absolute;
+  bottom: 140px; /* Positioning the icon from the bottom */
+  right: 10px; /* Align icon to the right */
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  z-index: 1100; /* Ensure the icon is above the content */
+  display: block; /* Initially visible */
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px; /* Sidebar is off-screen initially */
+  width: 250px;
+  height: 100%;
+  background-color: #2c3e50;
+  color: white;
+  transition: left 0.3s ease; /* Smooth transition when opening */
+  z-index: 1000;
+}
+
+.sidebar.open {
+  left: 0; /* Sidebar slides in when open */
+}
+
+/* Ensure the icon is hidden when the sidebar is open */
+.sidebar.open .sidebar-icon {
+  display: none; /* Hide the icon when sidebar is open */
+}
+
+/* Sidebar Menu */
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-item {
+  padding: 20px;
+  border-bottom: 1px solid #34495e;
+  text-align: center;
+}
+
+.sidebar-item:hover {
+  background-color: #34495e;
+}
+
+/* Style for the icon when sidebar is open (inside the sidebar) */
+.sidebar.open .sidebar-icon {
+  position: absolute;
+  top: 10px;
+  right: -40px; /* Move the icon outside of the sidebar */
+  width: 30px;
+  height: 30px;
+  background-color: #1a237e; /* Optional: Change background for better visibility */
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1100;
+}
+/* 
+
+
+/* Section Title */
+.section-title {
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 24px;
+}
+
+/* Services Grid */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+
+/* Service Card */
+.service-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.image-container {
+  width: 100%;
+  height: 120px;
+}
+
+.service-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.service-info {
+  padding: 12px;
+}
+
+.service-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #14181b;
+}
+
+.service-description {
+  font-size: 12px;
+  color: #57636c;
+}
