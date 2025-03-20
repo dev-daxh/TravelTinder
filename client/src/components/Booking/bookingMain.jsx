@@ -9,14 +9,14 @@ const planData = {
       description: "Experience Goa's most beautiful beaches and thrilling water sports.",
       price: "₹12,999",
       image: "https://www.bookingnear.com/storage/package-gallery/large_1-goa-tour-package.jpeg",
-    },
-    {
+    },{
       id: 2,
       name: "Heritage Discovery Tour",
       description: "Explore Portuguese architecture and ancient churches.",
       price: "₹15,999",
       image: "https://www.pelago.com/img/products/IN-India/old-goa-heritage-walk-by-make-it-happen.jpg",
     },
+    
   ],
   accommodations: [
     {
@@ -46,12 +46,9 @@ const PlanTrip = () => {
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Updated function to log selected item's info
-  const handleBookBtn = (item) => {
-    console.log("Booking Information:", item);
-    alert(`Booking Confirmed for: ${item.name}`);
-  };
-
+  const handelBookBtn = () => {
+    alert("Booking Confirmed!",);
+  }
   return (
     <div className="plan-trip-container">
       {/* Search Bar */}
@@ -89,7 +86,7 @@ const PlanTrip = () => {
                   ⭐ {item.rating}
                 </p>
               )}
-              <button className="book-button" onClick={() => handleBookBtn(item)}>Book Now</button>
+              <button className="book-button" onClick={handelBookBtn}>Book Now</button>
             </div>
           </div>
         ))}
@@ -99,3 +96,5 @@ const PlanTrip = () => {
 };
 
 export default PlanTrip;
+
+

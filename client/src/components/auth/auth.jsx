@@ -31,7 +31,7 @@ const AuthPage = () => {
   const handleContinue = async () => {
     console.log(`Email ${email} submitted!`);
   
-    // Simulate OTP sending logic (API call or something else)
+    // Simulate OTP sending logic (API call )
     try {
       toast.success('OTP sent successfully!', {
         position: "top-right",
@@ -123,6 +123,10 @@ const AuthPage = () => {
       // Compare both values (ensure both are strings and trim any whitespace)
       if (String(otp).trim() === String(sentOtp).trim()) {
         // Proceed to next step (e.g., redirect or other actions)
+        localStorage.clear();
+      // Store token in localStorage
+      localStorage.setItem("email", email);
+
         try {
           toast.success('OTP verifired !', {
             position: "top-right",
