@@ -1,0 +1,61 @@
+{
+    "packages": [
+      {
+        "id": 1,
+        "name": "Teams' Day Out at Perumbalam",
+        "description": "A day's group trip to Perumbalam Island in Alappuzha district, featuring canoe rides, cycling, village tours, backwater swimming, and boating.",
+        "price": "₹1,250 per person",
+        "image": "https://www.virginlocales.com/wp-content/uploads/2023/03/Perumbalam.jpg"
+      },
+      {
+        "id": 2,
+        "name": "Kerala Tour Package (1 Night, 2 Days)",
+        "description": "Explore Cochin and Alleppey with exclusive cab service, hotel accommodation, and sightseeing.",
+        "price": "₹2,000 per person",
+        "image": "https://www.munnarpackagetours.com/images/kerala-tour-packages.jpg"
+      }
+    ],
+    "accommodations": [
+      {
+        "id": 1,
+        "name": "Hostel By The Sea",
+        "location": "Kochi",
+        "price": "₹335 per night",
+        "rating": "4.0",
+        "image": "https://media-cdn.tripadvisor.com/media/photo-s/0e/4d/6b/7a/hostel-by-the-sea.jpg"
+      },
+      {
+        "id": 2,
+        "name": "Mountain View Homestay",
+        "location": "Thekkady",
+        "price": "₹500 per night",
+        "rating": "4.5",
+        "image": "https://cf.bstatic.com/xdata/images/hotel/max1024x768/123456789.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Zostel Varkala",
+        "location": "Varkala",
+        "price": "₹600 per night",
+        "rating": "4.3",
+        "image": "https://cf.bstatic.com/xdata/images/hotel/max1024x768/987654321.jpg"
+      },
+      {
+        "id": 4,
+        "name": "Vedanta Wake Up! - Fort Kochi",
+        "location": "Kochi",
+        "price": "₹700 per night",
+        "rating": "4.2",
+        "image": "https://cf.bstatic.com/xdata/images/hotel/max1024x768/192837465.jpg"
+      },
+      {
+        "id": 5,
+        "name": "Misty Valley Homestay",
+        "location": "Munnar",
+        "price": "₹1,200 per night",
+        "rating": "4.6",
+        "image": "https://cf.bstatic.com/xdata/images/hotel/max1024x768/564738291.jpg"
+      }
+    ]
+  }
+  

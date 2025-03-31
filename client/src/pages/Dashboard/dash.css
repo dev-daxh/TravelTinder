@@ -1,72 +1,110 @@
+/* Navbar */
 .navbar {
-    background-color: #060b26;
-    height: 80px;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-  }
-  
-  .menu-bars {
-    margin-left: 2rem;
-    font-size: 2rem;
-    background: none;
-  }
-  
-  .nav-menu {
-    background-color: #060b26;
-    width: 250px;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    left: -100%;
-    transition: 850ms;
-  }
-  
-  .nav-menu.active {
-    left: 0;
-    transition: 350ms;
-  }
-  
-  .nav-text {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    padding: 8px 0px 8px 16px;
-    list-style: none;
-    height: 60px;
-  }
-  
-  .nav-text a {
-    text-decoration: none;
-    color: #f5f5f5;
-    font-size: 18px;
-    width: 95%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    padding: 0 16px;
-    border-radius: 4px;
-  }
-  
-  .nav-text a:hover {
-    background-color: #1a83ff;
-  }
-  
-  .nav-menu-items {
-    width: 100%;
-  }
-  
-  .navbar-toggle {
-    background-color: #060b26;
-    width: 100%;
-    height: 80px;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-  }
-  
-  span {
-    margin-left: 16px;
-  }
+  position: relative; /* Add position relative to use pseudo-element */
+  background: url("https://png.pngtree.com/background/20210710/original/pngtree-travel-around-the-world-picture-image_1019959.jpg")
+      no-repeat center center/cover;
+  background-size: cover;
+  background-position: center;
+  height: 80px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+/* Pseudo-element for background overlay */
+.navbar::before {
+  content: ''; /* Empty content */
+  position: absolute; /* Position it absolutely */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2); /* Semi-transparent black overlay */
+  z-index: -1; /* Ensure it stays behind the navbar content */
+}
+
+/* Menu bars (hamburger icon) */
+.menu-bars {
+  margin-left: 2rem;
+  font-size: 2rem;
+  background: none;
+  color: #000000;
+}
+
+/* Sidebar Menu */
+.nav-menu {
+  background: url("https://png.pngtree.com/background/20210710/original/pngtree-travel-around-the-world-picture-image_1019959.jpg")
+    no-repeat center center/cover;
+  width: 250px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: -100%;
+  transition: 850ms;
+}
+
+/* Overlay for sidebar */
+.nav-menu::before {
+  content: ''; /* Empty content */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.4); /* Semi-transparent black overlay */
+  z-index: -1; /* Ensure it stays behind the sidebar content */
+}
+
+/* When Sidebar is active */
+.nav-menu.active {
+  left: 0;
+  transition: 350ms;
+}
+
+/* Menu items */
+.nav-text {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 8px 0px 8px 16px;
+  list-style: none;
+  height: 60px;
+  margin-top: 30px;
+}
+
+.nav-text a {
+  text-decoration: none;
+  color: #000000;
+  font-size: 24px;
+  font-weight: 550;
+  width: 95%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-radius: 4px;
+  gap: 15px;
+}
+
+.nav-text a:hover {
+  background-color: #1a83ff;
+}
+
+.nav-menu-items {
+  width: 100%;
+}
+
+/* Navbar toggle button (close button) */
+.navbar-toggle {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+span {
+  margin-left: 16px;
+}

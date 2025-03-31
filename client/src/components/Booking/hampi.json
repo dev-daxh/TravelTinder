@@ -1,0 +1,122 @@
+{
+    "packages": [
+      {
+        "id": 1,
+        "name": "Heritage Hampi Tour",
+        "description": "Explore the rich history and architecture of Hampi's UNESCO World Heritage sites, including the Virupaksha Temple and Vijaya Vittala Temple.",
+        "price": "₹5,000",
+        "image": "https://www.holidify.com/images/cmsuploads/compressed/virupaksha-temple-hampi_20170817184953.jpg"
+      },
+      {
+        "id": 2,
+        "name": "Hampi Photography Tour",
+        "description": "Capture the breathtaking ruins and landscapes of Hampi on this guided photography tour, perfect for both amateur and professional photographers.",
+        "price": "₹8,000",
+        "image": "https://www.toehold.in/blog/wp-content/uploads/2024/12/indias-lost-city-awaits.webp"
+      },
+      {
+        "id": 3,
+        "name": "Cultural Cycling Tour",
+        "description": "Experience the local culture and heritage of Hampi by cycling through ancient temples, markets, and scenic routes.",
+        "price": "₹4,500",
+        "image": "https://www.holidify.com/images/cmsuploads/compressed/shutterstock_1086658589_20200110182323_20200110182352.jpg"
+      },
+      {
+        "id": 4,
+        "name": "Hampi and Badami Exploration",
+        "description": "Discover the architectural wonders of Hampi and the rock-cut temples of Badami on this comprehensive tour.",
+        "price": "₹10,000",
+        "image": "https://www.holidify.com/images/cmsuploads/compressed/Badami_Cave_Temples_20181210132752.jpg"
+      },
+      {
+        "id": 5,
+        "name": "Sunset at Matanga Hill",
+        "description": "Enjoy a guided trek to Matanga Hill to witness a mesmerizing sunset over the ruins of Hampi.",
+        "price": "₹2,000",
+        "image": "https://www.holidify.com/images/cmsuploads/compressed/Matanga_Hill_20181210132752.jpg"
+      }
+    ],
+    "accommodations": [
+      {
+        "id": 1,
+        "name": "Saptami Hampi Homestay",
+        "location": "Hampi",
+        "price": "₹1,500/night",
+        "rating": "9.0",
+        "image": "https://www.holidify.com/images/cmsuploads/compressed/39460_20200110182323_20200110182352.jpg"
+      },
+      {
+        "id": 2,
+        "name": "Arjun Homestay",
+        "location": "Hampi",
+        "price": "₹1,200/night",
+        "rating": "9.2",
+        "image": "https://www.holidify.com/images/cmsuploads/compressed/39461_20200110182323_20200110182352.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Thilak Home Stay",
+        "location": "Hampi",
+        "price": "₹1,100/night",
+        "rating": "9.0",
+        "image": "https://www.holidify.com/images/cmsuploads/compressed/39462_20200110182323_20200110182352.jpg"
+      },
+      {
+        "id": 4,
+        "name": "Prajwal Homestay",
+        "location": "Hampi",
+        "price": "₹1,300/night",
+        "rating": "8.8",
+        "image": "https://www.holidify.com/images/cmsuploads/compressed/39463_20200110182323_20200110182352.jpg"
+      },
+      {
+        "id": 5,
+        "name": "Krishna Homestay Hampi",
+        "location": "Hampi",
+        "price": "₹1,400/night",
+        "rating": "9.4",
+        "image": "https://www.holidify.com/images/cmsuploads/compressed/39464_20200110182323_20200110182352.jpg"
+      },
+      {
+        "id": 6,
+        "name": "Murali Budget Homestay",
+        "location": "Hampi",
+        "price": "₹1,000/night",
+        "rating": "8.6",
+        "image": "https://www.makemytrip.com/hotels/hotel_photos/murali_budget_homestay-hampi.html"
+      },
+      {
+        "id": 7,
+        "name": "Dream Home Stay",
+        "location": "Hampi",
+        "price": "₹1,200/night",
+        "rating": "8.5",
+        "image": "https://www.makemytrip.com/hotels/hotel_photos/dream_home_stay-hampi.html"
+      },
+      {
+        "id": 8,
+        "name": "Gopi Guest House",
+        "location": "Hampi",
+        "price": "₹1,800/night",
+        "rating": "8.7",
+        "image": "https://www.agoda.com/gopi-guest-house/hotel/hampi-in.html"
+      },
+      {
+        "id": 9,
+        "name": "Clarks INN Hampi",
+        "location": "Hampi",
+        "price": "₹2,000/night",
+        "rating": "8.9",
+        "image": "https://www.kayak.com/Hampi-Hotels-Clarks-INN-Hampi.2047934.ksp"
+      },
+      {
+        "id": 10,
+        "name": "Kishkinda Heritage Resort",
+        "location": "Hampi",
+        "price": "₹1,900/night",
+        "rating": "8.4",
+        "image": "https://www.kayak.com/Hampi-Hotels-Kishkinda-Heritage-Resort.2047935.ksp"
+      }
+    ]
+  }
+  

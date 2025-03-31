@@ -1,37 +1,93 @@
 import React, { useState } from "react";
 import "./loginT&C.css";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';  // Import ToastContainer and toast
-import { Bounce } from 'react-toastify'; // Import Bounce transition
+import { ToastContainer, toast } from 'react-toastify';
+import { Bounce } from 'react-toastify';
+import axios from 'axios'; // Import Axios
 
 const LoginTerms = () => {
   const [isChecked, setIsChecked] = useState(false);
+  const navigate = useNavigate();
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
 
-  const navigate = useNavigate();
-  
-  const handleAccept = () => {
+  const handleAccept = async () => {
     if (isChecked) {
-      toast.success('Success', {
-        position: "top-right",
-        autoClose: 1700,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,  // Use the Bounce transition here
-        onClose: () => navigate('/profile-setup'),  // Navigate after the toast closes
-      });
-    } else {
-      alert("Please agree to the Terms and Conditions before continuing.");
+      const savedEmail = localStorage.getItem("email");
+
+      if (savedEmail) {
+        try {
+          // Axios POST request to check the user by email
+          const response = await axios.post("http://localhost:3001/api/user/search-user", {
+            email: savedEmail,
+          });
+
+          const data = response.data;
+          console.log("Response Data:", data);
+
+          // Check the response message from the server
+          if (data.message == 'found') {
+            // User found, navigate to /home
+            toast.success("Welcome back!", {
+              position: "top-right",
+              autoClose: 1700,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Bounce,
+              onClose: () => navigate("/home"),
+            });
+          } else if (data.message == 'not') {
+            // User not found, navigate to /profile-setup
+            toast.success("Welcome new user! Please complete your profile.", {
+              position: "top-right",
+              autoClose: 1700,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Bounce,
+              onClose: () => navigate("/profile-setup"),
+            });
+          } else {
+            // Unexpected response from the server
+            toast.error("Something went wrong!", {
+              position: "top-right",
+              autoClose: 1700,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              transition: Bounce,
+            });
+          }
+        } catch (error) {
+          console.error("Axios error:", error);
+          // If there's an error (e.g., network issue or server error), show a toast
+          toast.error("Something went wrong!", {
+            position: "top-right",
+            autoClose: 1700,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+        }
+      }
     }
   };
-  
 
   return (
     <div className="terms-container">
@@ -75,7 +131,7 @@ const LoginTerms = () => {
         <button className="accept" onClick={handleAccept} disabled={!isChecked}>
           Accept and Continue
         </button>
-        <ToastContainer />  {/* Place the ToastContainer here */}
+        <ToastContainer />
       </div>
     </div>
   );

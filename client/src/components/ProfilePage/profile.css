@@ -65,13 +65,14 @@
 .follow-button,
 .chat-button {
   position: absolute;
-  /* padding: 8px 16px; */
+  padding: 8px 16px;
   background-color: #333333;
   color: white;
   border: none;
   border-radius: 8px;
   font-size: 14px;
   cursor: pointer;
+  margin-top: 10px;
 }
 
 .follow-button {

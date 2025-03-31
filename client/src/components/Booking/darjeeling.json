@@ -1,0 +1,68 @@
+{
+    "packages": [
+      {
+        "id": 1,
+        "name": "Darjeeling Delight Tour",
+        "description": "Explore the serene landscapes of Darjeeling, visit tea gardens, and enjoy the panoramic views from Tiger Hill.",
+        "price": "₹10,000",
+        "image": "https://www.makemytrip.com/travel-guide/media/dg_image/darjeeling/Tiger-Hill-Darjeeling.jpg"
+      },
+      {
+        "id": 2,
+        "name": "Tea Estate Experience",
+        "description": "Immerse yourself in the world of tea with visits to renowned estates and tasting sessions.",
+        "price": "₹12,000",
+        "image": "https://www.makemytrip.com/travel-guide/media/dg_image/darjeeling/Happy-Valley-Tea-Estate-Darjeeling.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Cultural Heritage Tour",
+        "description": "Discover the rich cultural heritage of Darjeeling through monasteries, museums, and local markets.",
+        "price": "₹11,500",
+        "image": "https://www.makemytrip.com/travel-guide/media/dg_image/darjeeling/Ghoom-Monastery-Darjeeling.jpg"
+      }
+    ],
+    "accommodations": [
+      {
+        "id": 1,
+        "name": "Hideout Backpackers Hostel",
+        "location": "Darjeeling",
+        "price": "₹500/night",
+        "rating": "4.5",
+        "image": "https://www.hostelworld.com/st/hostels/p/287789/hideout-backpackers-hostel/"
+      },
+      {
+        "id": 2,
+        "name": "The Bunkyard Hostel",
+        "location": "Chauk Bazaar",
+        "price": "₹715/night",
+        "rating": "3.9",
+        "image": "https://www.makemytrip.com/hotels/darjeeling-hotels-under-1000.html"
+      },
+      {
+        "id": 3,
+        "name": "Pahari Soul Homestay",
+        "location": "West Point",
+        "price": "₹1,230/night",
+        "rating": "4.0",
+        "image": "https://www.goibibo.com/hotels/darjeeling-hotels-under-2000/"
+      },
+      {
+        "id": 4,
+        "name": "Arivhya Homestay",
+        "location": "Darjeeling",
+        "price": "₹1,048/night",
+        "rating": "4.3",
+        "image": "https://www.makemytrip.com/hotels/darjeeling-hotels-under-1000.html"
+      },
+      {
+        "id": 5,
+        "name": "Teesta Homestay",
+        "location": "Darjeeling",
+        "price": "₹1,200/night",
+        "rating": "3.8",
+        "image": "https://www.makemytrip.com/hotels/darjeeling-hotels-under-1000.html"
+      }
+    ]
+  }
+  

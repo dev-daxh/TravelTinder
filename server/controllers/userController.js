@@ -1,12 +1,28 @@
 const db = require('../config/firebase');
+const path = require('path');
 
 const cloudinary = require('../config/img');
 const multer = require('multer');
 
+const allowedExtensions = ['.jpg', '.jpeg', '.png'];
+// Configure Multer to store file in memory
 
 // Configure Multer to store file in memory
 const storage = multer.memoryStorage();
-const upload = multer({ storage });
+const upload = multer({ 
+  storage: storage,
+  limits: { 
+    fileSize: 1 * 1024 * 1024 // Limit to 1MB (1 * 1024 * 1024 bytes)
+  }, 
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    if (allowedTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Only image files are allowed'), false);
+    }
+  },
+});
 
 
 // const userCreate = (req, res) => {
@@ -154,13 +170,6 @@ const userCreate = (req, res) => {
         });
     });
 };
-
-
-
-
-
-
-
 // const getUsers = (req,res) => {
 //     console.log('Request fetched');
 
@@ -216,8 +225,12 @@ const getUsers = (req, res) => {
     });
 };
 
-// Upload Image to Cloudinary
-// Cloudinary upload function
+//uplaoading image
+
+// Multer Storage Configuration
+// Multer storage configuration
+
+
 
 const uploadProfileImage = async (req, res) => {
     try {
@@ -225,38 +238,36 @@ const uploadProfileImage = async (req, res) => {
             return res.status(400).json({ error: 'No file uploaded' });
         }
 
-        // Get the original file extension
         const fileExtension = req.file.originalname.split('.').pop();
+        const newFileName = `${req.body.email}_profile`;
 
-        // Create a unique filename without extension to use as the public_id
-        const newFileName = `${req.body.userEmail}_profile`;  // Remove file extension
-
-        // Create a stream to upload the file to Cloudinary
+        // Upload to Cloudinary
         const uploadStream = cloudinary.uploader.upload_stream(
             {
-                folder: 'uploads', // Define Cloudinary folder
-                public_id: newFileName, // Use the unique file name as the public_id
-                resource_type: 'auto' // Let Cloudinary auto-detect the resource type
+                folder: 'uploads',
+                public_id: newFileName,
+                resource_type: 'auto',
             },
             (error, result) => {
                 if (error) {
                     console.error('Cloudinary upload error:', error);
                     return res.status(500).json({ error: 'Upload failed' });
                 }
-                console.log('asset id: '+result.asset_id);
 
-                // Return the image URL from Cloudinary
-                res.json({
+                // Successful upload
+                console.log('Asset ID: ' + result.asset_id);
+                console.log('Image URL: ' + result.secure_url);
+
+                // Respond with success and include image URL and asset ID
+                return res.status(200).json({
                     success: true,
-                    imageUrl: result.secure_url, // Image URL from Cloudinary
-                    assetId: result.asset_id      // Asset ID from Cloudinary
+                    imageUrl: result.secure_url,
+                    assetId: result.asset_id,
                 });
-
             }
         );
 
-        // Stream the file buffer to Cloudinary
-        uploadStream.end(req.file.buffer);
+        uploadStream.end(req.file.buffer);  // Send file buffer to Cloudinary
     } catch (error) {
         console.error('Error:', error);
         res.status(500).json({ error: 'Upload failed' });
@@ -265,48 +276,128 @@ const uploadProfileImage = async (req, res) => {
 
 
 
-const uploadAadharImage = async (req, res) => {
-    try {
-        if (!req.file) {
-            return res.status(400).json({ error: 'No file uploaded' });
+
+// const uploadProfileImage = (req, res) => {
+//     try {
+//         // Check if file is uploaded
+//         if (!req.file) {
+//             console.log('No file uploaded.');
+//             return res.status(400).json({ error: 'No file uploaded' });
+//         }
+//         if(!req.body.email){
+//             return res.status(400).json({ error: 'Email is required' });
+//         }
+
+//         // Check if the file extension is allowed
+//         const fileExtension = path.extname(req.file.originalname).toLowerCase();
+//         if (!allowedExtensions.includes(fileExtension)) {
+//             console.log('Invalid file extension:', fileExtension);
+//             return res.status(400).json({ error: 'Invalid file extension' });
+//         }
+
+// // Generate the local file path
+// const localFilePath = path.join(__dirname, '../uploads', req.body.email, req.file.filename);
+// // const fileUrl = `file://${localFilePath}`;
+// const fileUrl = `http://localhost:3001/uploads/${req.body.email}/${req.file.filename}`;
+
+// res.status(200).json({ message: 'File uploaded successfully', fileUrl });
+// console.log('File uploaded successfully:', fileUrl);
+
+
+
+//     } catch (error) {
+//         console.error('Error during file upload:', error);
+//         return res.status(500).json({ error: 'Error uploading profile image' });
+//     }
+// };
+
+
+
+
+// const uploadAadharImage = async (req, res) => {
+//     try {
+//         if (!req.file) {
+//             return res.status(400).json({ error: 'No file uploaded' });
+//         }
+
+//         // Get the original file extension
+//         const fileExtension = req.file.originalname.split('.').pop();
+
+//         // Create a unique filename without extension to use as the public_id
+//         const newFileName = `${req.body.userEmail}_profile`;  // Remove file extension
+
+//         // Create a stream to upload the file to Cloudinary
+//         const uploadStream = cloudinary.uploader.upload_stream(
+//             {
+//                 folder: 'uploads', // Define Cloudinary folder
+//                 public_id: newFileName, // Use the unique file name as the public_id
+//                 resource_type: 'auto' // Let Cloudinary auto-detect the resource type
+//             },
+//             (error, result) => {
+//                 if (error) {
+//                     console.error('Cloudinary upload error:', error);
+//                     return res.status(500).json({ error: 'Upload failed' });
+//                 }
+//                 console.log('asset id: '+result.asset_id);
+//                 // Return the image URL from Cloudinary
+//                 res.json({
+//                     success: true,
+//                     imageUrl: result.secure_url, // Image URL from Cloudinary
+//                     assetId: result.asset_id      // Asset ID from Cloudinary
+//                 });            
+//             }
+//         );
+
+//         // Stream the file buffer to Cloudinary
+//         uploadStream.end(req.file.buffer);
+//     } catch (error) {
+//         console.error('Error:', error);
+//         res.status(500).json({ error: 'Upload failed' });
+//     }
+// };
+
+const checkUserByEmail = (req, res) => {
+    console.log('Request body:', req.body);
+
+    const { email } = req.body;
+
+    // Basic Validation for Email
+    if (!email) {
+        return res.status(400).json({
+            message: "Email is required"
+        });
+    }
+
+    // Fix Firebase invalid characters by replacing "." with "_"
+    const userId = email.replace(/\./g, '_');  // Firebase doesn't allow '.' in keys
+
+    // Reference to the user in Firebase using the formatted email
+    const usersRef = db.ref('users');
+    const userRef = usersRef.child(userId);
+
+    // Check if the user exists by reading the user reference
+    userRef.once('value', (snapshot) => {
+        if (snapshot.exists()) {
+            console.log(`User found for email: ${email}`);
+            return res.status(200).json({
+                message: 'found',
+                email: email
+            });
+        } else {
+            console.log(`No user found for email: ${email}`);
+            return res.status(200).json({
+                message: 'not',
+                email: email
+            });
         }
-
-        // Get the original file extension
-        const fileExtension = req.file.originalname.split('.').pop();
-
-        // Create a unique filename without extension to use as the public_id
-        const newFileName = `${req.body.userEmail}_profile`;  // Remove file extension
-
-        // Create a stream to upload the file to Cloudinary
-        const uploadStream = cloudinary.uploader.upload_stream(
-            {
-                folder: 'uploads', // Define Cloudinary folder
-                public_id: newFileName, // Use the unique file name as the public_id
-                resource_type: 'auto' // Let Cloudinary auto-detect the resource type
-            },
-            (error, result) => {
-                if (error) {
-                    console.error('Cloudinary upload error:', error);
-                    return res.status(500).json({ error: 'Upload failed' });
-                }
-                console.log('asset id: '+result.asset_id);
-                // Return the image URL from Cloudinary
-                res.json({
-                    success: true,
-                    imageUrl: result.secure_url, // Image URL from Cloudinary
-                    assetId: result.asset_id      // Asset ID from Cloudinary
-                });            
-            }
-        );
-
-        // Stream the file buffer to Cloudinary
-        uploadStream.end(req.file.buffer);
-    } catch (error) {
-        console.error('Error:', error);
-        res.status(500).json({ error: 'Upload failed' });
-    }
+    }, (error) => {
+        console.error('Error checking user:', error.message);
+        return res.status(500).json({
+            message: 'Error checking user',
+            error: error.message || 'Unknown error'
+        });
+    });
 };
 
 
-
-module.exports = {userCreate, getUsers, uploadProfileImage, uploadAadharImage };
+module.exports = {userCreate, getUsers, uploadProfileImage ,checkUserByEmail};

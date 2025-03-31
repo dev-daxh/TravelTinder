@@ -1,0 +1,105 @@
+.follow-page {
+    width: 100%;
+    max-width: 100%;  /* Use full width for mobile */
+    margin: auto;
+    font-family: Arial, sans-serif;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-sizing: border-box;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+  }
+  
+  .user-card {
+    display: flex;
+    flex-direction: column;  /* Stack elements vertically on mobile */
+    align-items: flex-start;
+    width: 100%;
+    max-width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+  
+  .profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  
+  .user-info {
+    flex: 1;
+    margin-left: 0;
+    margin-bottom: 5px;  /* Space between user info and button */
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  
+  .username {
+    font-weight: bold;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .name {
+    color: gray;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .mutual {
+    color: #888;
+    font-size: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .follow-btn {
+    background-color: #0095f6;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s ease;
+    flex-shrink: 0;
+    width: 100%;  /* Make the follow button take full width on small screens */
+    margin-top: 10px;  /* Add spacing between the user info and button */
+  }
+  
+  .follow-btn.following {
+    background-color: #ccc;
+    color: black;
+  }
+  
+  /* Larger screens adjustments (e.g., tablet, desktop) */
+  @supports (display: grid) {
+    .user-card {
+      flex-direction: row;  /* Switch back to row layout on larger screens */
+      align-items: center;
+    }
+  
+    .user-info {
+      margin-left: 10px;  /* Spacing between user info and follow button */
+      margin-bottom: 0;
+    }
+  
+    .follow-btn {
+      width: auto;  /* Allow the follow button to shrink to fit content */
+      padding: 6px 10px;  /* Adjust padding for larger screens */
+    }
+  }
+  

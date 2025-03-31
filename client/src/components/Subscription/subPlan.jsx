@@ -1,11 +1,12 @@
 import React from "react";
+import axios from "axios";
 import "./subPlan.css";
 
 const plansData = [
   {
     id: 1,
     name: "🌿 Basic Explorer",
-    price: "₹49/month",
+    price: 49, // ₹50
     description: "For travelers seeking quick connections.",
     icon: "🚀",
     features: [
@@ -18,7 +19,7 @@ const plansData = [
   {
     id: 2,
     name: "🚀 Pro Voyager",
-    price: "₹99/month",
+    price: 99, // ₹100
     description: "Great for building travel groups and planning trips together.",
     icon: "📈",
     features: [
@@ -31,7 +32,7 @@ const plansData = [
   {
     id: 3,
     name: "💎 Globetrotter Elite",
-    price: "₹199/month",
+    price: 199, // ₹200
     description: "All-in-One for Frequent Travelers",
     icon: "💎",
     features: [
@@ -44,11 +45,84 @@ const plansData = [
 ];
 
 const SubscriptionPlans = () => {
-  // Updated handelPlan to accept plan data
+  const apiKey = import.meta.env.RAZORPAY_KE;
+  const loadScript = (src) => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
+
+  // Function to create a Razorpay order
+  const createRazorpayOrder = async (amount) => {
+    let data = JSON.stringify({
+      amount: amount * 100, // Convert INR to paise (Razorpay accepts amount in paise)
+      currency: "INR",
+    });
+
+    let config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: "http://localhost:3001/api/payment/make-payment",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    try {
+      const response = await axios.request(config);
+      console.log("Order response:", response.data);
+      handleRazorpayScreen(response.data.amount);
+    } catch (error) {
+      console.error("Error creating Razorpay order:", error);
+    }
+  };
+
+  // Function to handle the Razorpay payment screen
+  const handleRazorpayScreen = async (amount) => {
+    const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
+
+    if (!res) {
+      alert("Some error occurred while loading Razorpay");
+      return;
+    }
+
+    const options = {
+      key: "", // Replace with your Razorpay key
+      amount: amount,
+      currency: "INR",
+      name: "Travel Tinder",
+      description: "Payment for selected subscription plan",
+      image:
+        "https://as2.ftcdn.net/v2/jpg/00/65/48/25/1000_F_65482539_C0ZozE5gUjCafz7Xq98WB4dW6LAhqKfs.jpg",
+      handler: function (response) {
+        console.log("Payment successful, Razorpay ID:", response.razorpay_payment_id);
+        alert("Payment successful: " + response.razorpay_payment_id);
+        // You can also send the payment ID to your server for further verification if needed.
+      },
+      prefill: {
+        name: "Daksh Titarmare",
+        email: "itrnitydaksh@gmail.com",
+      },
+      theme: {
+        color: "#F4C430",
+      },
+    };
+
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+  };
+
+  // Function to handle plan selection
   const handelPlan = (plan) => {
     console.log("Selected Plan Data:", plan); // Log the selected plan
     alert("Plan Selected: " + plan.name); // Optional: Show a message to the user
-  }
+    createRazorpayOrder(plan.price); // Trigger Razorpay payment with the price of the selected plan
+  };
 
   return (
     <div className="subscription-container">
@@ -65,7 +139,7 @@ const SubscriptionPlans = () => {
             <div className="plan-info">
               <div>
                 <h3>{plan.name}</h3>
-                <p className="price">{plan.price}</p>
+                <p className="price">{plan.price} INR/month</p>
               </div>
               <div className="plan-icon">{plan.icon}</div>
             </div>
@@ -75,8 +149,10 @@ const SubscriptionPlans = () => {
                 <li key={index}>✅ {feature}</li>
               ))}
             </ul>
-            {/* Correct way to pass plan data */}
-            <button className="select-button" onClick={() => handelPlan(plan)}>Select Plan</button>
+            {/* Button to select the plan and trigger the payment */}
+            <button className="select-button" onClick={() => handelPlan(plan)}>
+              Select Plan
+            </button>
           </div>
         ))}
       </div>

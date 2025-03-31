@@ -108,37 +108,39 @@ useEffect(() => {
     reader.onloadend = () => {
       const base64Image = reader.result;
       localStorage.setItem("profileImage", base64Image); // Store in localStorage
-      setFormData((prevData) => ({ ...prevData, profilePicture: base64Image }));
     };
   };
-  
   const handleProfileImageUploadApi = async (file, userEmail) => {
     const fileExtension = file.name.split('.').pop(); // Get file extension
     const newFileName = `${userEmail}_profile.${fileExtension}`; // Renaming file for uniqueness
-  
+
     const formDataUpload = new FormData();
     formDataUpload.append("image", file, newFileName); // Upload with new filename
-  
+    formDataUpload.append("email", userEmail); // Include the email in the request
+
     try {
-      const response = await axios.post(
-        "http://localhost:3001/api/user/upload-profile",
-        formDataUpload,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
-  
-      if (response.status === 200) {
-        const imageUrl = response.data.imageUrl; // Backend should return URL
-        const assetId = response.data.assetId;
-        localStorage.setItem('assetIdProfile',assetId);
-        // Update formData with the URL of the profile image
-        setFormData((prevData) => ({ ...prevData, profilePicture: imageUrl }));
-        toast.success("Profile image uploaded successfully!");
-      } else {
-        toast.error("Failed to upload profile image. Please try again.");
-      }
+        console.log("formDataUpload:", formDataUpload);
+        
+        // Await the response from the backend
+        const response = await axios.post(
+            "http://localhost:3001/api/user/upload-img", // Correct API route
+            formDataUpload,
+            { headers: { "Content-Type": "multipart/form-data" } }
+        );
+
+        // Check if the response is successful
+        if (response.status === 200 && response.data.success) {
+            const imageUrl = response.data.imageUrl; // Backend sends image URL
+            localStorage.setItem('profileImgUrl', imageUrl); // Store URL in localStorage
+            toast.success("Profile image uploaded successfully!");
+            setFormData((prevData) => ({ ...prevData, profilePicture: imageUrl }));
+
+        } else {
+            toast.error("Failed to upload profile image. Please try again.");
+        }
     } catch (error) {
-      toast.error("Error uploading profile image.");
-      console.error("Upload Error:", error);
+        toast.error("Error uploading profile image.");
+        console.error("Upload Error:", error);
     }
 };
 
@@ -159,30 +161,43 @@ useEffect(() => {
   
     const formDataUpload = new FormData();
     formDataUpload.append("image", file, newFileName); // Upload with new filename
-  
-    try {
-      const response = await axios.post(
-        "http://localhost:3001/api/user/upload-aadhar",
-        formDataUpload,
-        { headers: { "Content-Type": "multipart/form-data" } }
-      );
-  
-      if (response.status === 200) {
-        const imageUrl = response.data.imageUrl; // Backend should return URL
-        const assetId = response.data.assetId;
 
-        localStorage.setItem('assetIdAadhar',assetId);
-        // Update formData with the URL of the Aadhar image
-        setFormData((prevData) => ({ ...prevData, aadharFile: imageUrl }));
-        toast.success("Aadhar image uploaded successfully!");
-      } else {
-        toast.error("Failed to upload Aadhar image. Please try again.");
-      }
+    try {
+        // Await the response from the backend
+        const response = await axios.post(
+            "http://localhost:3001/api/user/upload-img", // Correct API route
+            formDataUpload,
+            { headers: { "Content-Type": "multipart/form-data" } }
+        );
+
+        // Check if the response is successful
+        if (response.status === 200 && response.data.success) {
+            const imageUrl = response.data.imageUrl; // Backend should return the image URL
+            const assetId = response.data.assetId; // Backend should also return the asset ID
+
+            // Store the Aadhar image URL in localStorage
+            localStorage.setItem('aadharImage', imageUrl);
+
+            // Update formData with the URL of the Aadhar image
+            setFormData((prevData) => ({
+                ...prevData,
+                aadharFile: imageUrl,
+                aadharAssetId: assetId, // Optionally store assetId as well
+            }));
+
+            // Show success toast
+            toast.success("Aadhar image uploaded successfully!");
+        } else {
+            // Handle case where the server response indicates failure
+            toast.error("Failed to upload Aadhar image. Please try again.");
+        }
     } catch (error) {
-      toast.error("Error uploading Aadhar image.");
-      console.error("Upload Error:", error);
+        // Handle any errors that occur during the upload process
+        toast.error("Error uploading Aadhar image.");
+        console.error("Upload Error:", error);
     }
 };
+
 
   
   // Function to handle profile image upload
@@ -378,6 +393,7 @@ useEffect(() => {
       if (response.status === 201) {
         toast.success("Profile created successfully!");
         // Optionally, reset the form data or redirect the user after successful submission
+        navigate('/home');
       }
     } catch (error) {
       toast.error("Error saving profile. Please try again.");
@@ -425,12 +441,17 @@ useEffect(() => {
           <input type="text" name="lastName" placeholder="Last Name*" value={formData.lastName} onChange={handleInputChange} />
           <input type="date" name="dob" value={formData.dob} onChange={handleInputChange} />
           <div className="gender-options">
-            {["Male", "Female", "Other"].map(gender => (
-              <button key={gender} className={`gender-btn ${formData.gender === gender ? "selected" : ""}`} onClick={() => handleGenderSelect(gender)}>
-                {gender}
-              </button>
-            ))}
-          </div>
+  {["Male", "Female", "Other"].map(gender => (
+    <button
+      key={gender}
+      className={`gender-btn ${formData.gender === gender ? "selected" : ""}`}
+      onClick={() => handleGenderSelect(gender)}
+    >
+      {gender}
+    </button>
+  ))}
+</div>
+
           <textarea name="bio" placeholder="Tell us about yourself..." value={formData.bio} onChange={handleInputChange}></textarea>
         </div>
       )}

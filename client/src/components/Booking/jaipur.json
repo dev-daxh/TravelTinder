@@ -1,0 +1,61 @@
+{
+    "packages": [
+      {
+        "id": 1,
+        "name": "Jaipur One Day Tour Package",
+        "description": "Explore Jaipur's iconic landmarks including Amber Fort, Jal Mahal, and Hawa Mahal in a day with an AC cab.",
+        "price": "₹2,000",
+        "image": "https://www.harivanshtours.com/wp-content/uploads/2020/06/jaipur-one-day-tour-package.jpg"
+      },
+      {
+        "id": 2,
+        "name": "Jaipur Night Tour Package",
+        "description": "Experience the enchanting beauty of Jaipur at night, visiting illuminated monuments and bustling markets.",
+        "price": "₹1,500",
+        "image": "https://www.srmholidays.in/wp-content/uploads/2020/12/jaipur-night-tour.jpg"
+      }
+    ],
+    "accommodations": [
+      {
+        "id": 1,
+        "name": "Zostel Jaipur",
+        "location": "Jaipur",
+        "price": "₹500/night",
+        "rating": "4.5",
+        "image": "https://www.zostel.com/static/images/zostel/jaipur/jaipur-1.jpg"
+      },
+      {
+        "id": 2,
+        "name": "Horn Ok Please Hostel Jaipur",
+        "location": "Jaipur",
+        "price": "₹600/night",
+        "rating": "4.4",
+        "image": "https://www.booking.com/hotel/in/hop-hostel-jaipur.en-gb.html"
+      },
+      {
+        "id": 3,
+        "name": "Moustache Hostel Jaipur",
+        "location": "Jaipur",
+        "price": "₹700/night",
+        "rating": "4.3",
+        "image": "https://www.moustachehostel.com/images/hostel/jaipur/jaipur-1.jpg"
+      },
+      {
+        "id": 4,
+        "name": "Leisure Inn Grand Chanakya",
+        "location": "Jaipur",
+        "price": "₹1,800/night",
+        "rating": "4.2",
+        "image": "https://www.leisureinnhotels.com/images/hotels/jaipur/jaipur-1.jpg"
+      },
+      {
+        "id": 5,
+        "name": "Vesta International",
+        "location": "Jaipur",
+        "price": "₹2,000/night",
+        "rating": "4.1",
+        "image": "https://www.vestahotels.in/images/hotels/jaipur/jaipur-1.jpg"
+      }
+    ]
+  }
+  

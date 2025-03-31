@@ -1,0 +1,75 @@
+{
+    "packages": [
+      {
+        "id": 1,
+        "name": "Shillong Family Tour Package",
+        "description": "Explore the beauty of Shillong with this 2-night, 3-day family tour package.",
+        "price": "₹12,999",
+        "image": "https://www.tripclap.com/images/package/2022/11/medium/1667467842_606970-Shillong-Family-tour-Package-2N-3D.jpg"
+      },
+      {
+        "id": 2,
+        "name": "Shillong Cherrapunji Tour Package",
+        "description": "Discover the mesmerizing landscapes of Shillong and Cherrapunji over 4 nights and 5 days.",
+        "price": "₹14,000",
+        "image": "https://www.imitytravels.com/wp-content/uploads/2022/05/Meghalaya-with-Cherrapunji-4-Nights-5-Days.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Meghalaya Kaziranga Tour Package",
+        "description": "Experience the wildlife of Kaziranga and the scenic beauty of Meghalaya in this 4-night, 5-day package.",
+        "price": "₹14,000",
+        "image": "https://www.imitytravels.com/wp-content/uploads/2022/05/Meghalaya-Kaziranga-tour-package-4-Nights-5-Days.jpg"
+      },
+      {
+        "id": 4,
+        "name": "Guwahati Shillong Cherrapunji Tour Package",
+        "description": "A comprehensive 6-night, 7-day tour covering Guwahati, Shillong, and Cherrapunji.",
+        "price": "₹19,900",
+        "image": "https://www.imitytravels.com/wp-content/uploads/2022/05/Guwahati-Shillong-Cherrapunji-Tour-Package-6-Nights-7-Days.jpg"
+      }
+    ],
+    "accommodations": [
+      {
+        "id": 1,
+        "name": "Lamlyn Hotel",
+        "location": "G S Road, Shillong",
+        "price": "₹900/night",
+        "rating": "3.5",
+        "image": "https://www.hotelsinshillong.com/images/hotels/lamlyn-hotel-shillong.jpg"
+      },
+      {
+        "id": 2,
+        "name": "Lake View Inn Hotel",
+        "location": "MG Road, Shillong",
+        "price": "₹1,000/night",
+        "rating": "3.8",
+        "image": "https://www.hotelsinshillong.com/images/hotels/lake-view-inn-hotel-shillong.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Hotel Indiana",
+        "location": "Police Bazar, Shillong",
+        "price": "₹2,000/night",
+        "rating": "4.0",
+        "image": "https://traveltriangle.com/blog/wp-content/uploads/2020/01/Hotel-Indiana_22nd-jan.jpg"
+      },
+      {
+        "id": 4,
+        "name": "Dongrama Homestay",
+        "location": "Burny Hills, Tura, West Garo Hills",
+        "price": "₹2,000/night",
+        "rating": "4.2",
+        "image": "https://westgarohills.gov.in/images/dongrama-homestay.jpg"
+      },
+      {
+        "id": 5,
+        "name": "Zostel Shillong",
+        "location": "Shillong",
+        "price": "₹1,500/night",
+        "rating": "4.5",
+        "image": "https://www.zostel.com/static/images/zostels/zostel-shillong/zostel-shillong-hero.jpg"
+      }
+    ]
+  }
+  

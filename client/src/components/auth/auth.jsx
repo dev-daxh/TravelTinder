@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./auth.css";
@@ -6,13 +6,23 @@ import { ToastContainer, toast } from 'react-toastify';  // Import ToastContaine
 import { Bounce } from 'react-toastify'; // Import Bounce transition
 
 const AuthPage = () => {
-  const [email, setEmail] = useState(""); // Changed phone to email
+  const [email, setEmail] = useState(""); //  email
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const [showOtpCard, setShowOtpCard] = useState(false); // New state for showing OTP card
   const [otp, setOtp] = useState(""); // State for OTP input
   const [sentOtp, setSentOtp] = useState(""); // State to store sent OTP for verification
   const navigate = useNavigate();
-
+  const [sentemail, setSentEmail] = useState(""); //  email
+  // Check localStorage for existing email on component mount
+  useEffect(() => {
+    const savedEmail = localStorage.getItem("email");
+    if (savedEmail) {
+      // setEmail(savedEmail);  // If email exists, set it in state
+      // setIsButtonEnabled(true);  // Enable the Continue button
+      //handel the firebase auth
+      // console.log(savedEmail);
+    }
+  }, []);
   // Handle email input change
   const handleEmailChange = (e) => {
     const value = e.target.value;
@@ -55,6 +65,7 @@ const AuthPage = () => {
       console.log("OTP:", response.data.otp); // Log OTP to console
   
       setSentOtp(response.data.otp); // Store the sent OTP for later verification
+      setSentEmail(email); // Store the sent email for later use
     } catch (error) {
       toast.error('Error sending OTP(Contact to developer)', {
         position: "top-right",
@@ -97,7 +108,7 @@ const AuthPage = () => {
       setTimeout(() => newWindow?.close(), 500);
   
       // Redirect to /profile
-      window.location.href = "/profile-setup"; 
+      window.location.href = "/terms"; 
     });
   };
   
@@ -118,14 +129,14 @@ const AuthPage = () => {
     // Log both the entered OTP and sent OTP for comparison
     console.log("Entered OTP:", otp);
     console.log("Sent OTP:", sentOtp);
-
+    console.log("Email:", sentemail);
     if (otp.length === 6) {
       // Compare both values (ensure both are strings and trim any whitespace)
       if (String(otp).trim() === String(sentOtp).trim()) {
         // Proceed to next step (e.g., redirect or other actions)
         localStorage.clear();
       // Store token in localStorage
-      localStorage.setItem("email", email);
+      localStorage.setItem("email", sentemail);
 
         try {
           toast.success('OTP verifired !', {

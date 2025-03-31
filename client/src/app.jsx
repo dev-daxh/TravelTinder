@@ -16,6 +16,10 @@ import LocationSearch from './components/LocationSearch/locS.jsx';
 import PlanTrip from './components/Booking/bookingMain.jsx';
 import PlanTripGoaDetails from './components/Booking/bookInfo.jsx';
 import Dashboard from './pages/Dashboard/dash.jsx';
+import FollowPage from './components/explore/explore.jsx';
+import Payment from './components/payment.jsx';
+import ImageUploadForm from './components/img/imgUpload.jsx';
+import PostPage from './components/PostPage/FirstPost/PostPage.jsx';
 
 
 const App = () => {
@@ -29,7 +33,7 @@ const App = () => {
         <Route path="/profile-setup" element={<ProfilePersonal />} />
         <Route path="/phone-auth" element={<PhoneAuth />} />
         <Route path="/phone-auth2" element={<TravelPreferencesFormV2 />} />
-        <Route path="/slidebar" element={<AdityaProfileWidget />} />
+        <Route path="/profile" element={<AdityaProfileWidget />} />
         <Route path="/chat" element={<ChatsMain />} />
         <Route path="/chat-user" element={<ChatUser />} />
         <Route path="/chat-video" element={<VideoCall />} />
@@ -38,7 +42,11 @@ const App = () => {
         <Route path="/book" element={<PlanTrip />} />
         <Route path="/book-info" element={<PlanTripGoaDetails />} />
         <Route path="/home" element={<Dashboard />} />
-        
+        <Route path="/explore" element={<FollowPage />} />
+        <Route path="/payment" element={<Payment />} />
+        <Route path="/img" element={<PostPage />} />
+
+
       </Routes>
     </Router>
   );

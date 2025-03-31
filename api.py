@@ -20,3 +20,24 @@
 
 # print(response.json())  # Print response as JSON
 
+import requests
+
+url = "https://api.makcorps.com/booking"
+params = {
+    "country": "in",
+    "hotelid": "the-lenox",
+    "checkin": "2024-12-05",
+    "checkout": "2024-12-11",
+    "currency": "INR",
+    "kids": 0,
+    "adults": 2,
+    "rooms": 1,
+    "api_key": "67e024de40668ef68c142512"
+}
+
+response = requests.get(url, params=params)
+
+if response.status_code == 200:
+    print(response.json())
+else:
+    print(f"Request failed with status code {response.status_code}")

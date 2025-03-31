@@ -6,7 +6,7 @@ const locationsData = [
   { id: 2, name: "Kalsubai" },
   { id: 3, name: "Meghalaya" },
   { id: 4, name: "Goa" },
-  { id: 5, name: "Rajasthan" },
+  { id: 5, name: "Jaipur" },
   { id: 6, name: "Kerala" },
   { id: 7, name: "Leh-Ladakh" },
   { id: 8, name: "Andaman & Nicobar Islands" },
@@ -104,6 +104,9 @@ const LocationSearch = () => {
 
   const handelClickedLocation = (e) => {
     alert("Selected Location: " + e.target.innerText);
+    if(e.target.innerText === "Goa") {
+      window.location.href = "/book";
+    }
     
   };
   return (

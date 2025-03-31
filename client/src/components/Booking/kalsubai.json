@@ -1,0 +1,122 @@
+{
+    "packages": [
+      {
+        "id": 1,
+        "name": "Kalsubai Night Trek",
+        "description": "Experience the thrill of a night trek to Kalsubai, the highest peak in Maharashtra, and witness a mesmerizing sunrise from the summit.",
+        "price": "₹699",
+        "image": "https://www.trekhievers.com/images/kalsubai-trek.jpg"
+      },
+      {
+        "id": 2,
+        "name": "Kalsubai Sunrise Trek",
+        "description": "Embark on an early morning trek to Kalsubai Peak and enjoy panoramic views of the Sahyadri ranges at sunrise.",
+        "price": "₹500",
+        "image": "https://www.mischieftreks.com/images/kalsubai-sunrise-trek.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Kalsubai Trek with Camping",
+        "description": "Combine the adventure of trekking with the joy of camping under the stars near Kalsubai Peak.",
+        "price": "₹1,500",
+        "image": "https://kalsubaitrekcamp.com/images/kalsubai-camping.jpg"
+      },
+      {
+        "id": 4,
+        "name": "Kalsubai Monsoon Trek",
+        "description": "Experience the lush greenery and cascading waterfalls of the Sahyadris during the monsoon season on this trek to Kalsubai Peak.",
+        "price": "₹1,200",
+        "image": "https://www.treksandtrails.org/images/kalsubai-monsoon-trek.jpg"
+      },
+      {
+        "id": 5,
+        "name": "Kalsubai Trek with Transportation",
+        "description": "Enjoy a hassle-free trek to Kalsubai Peak with transportation included from Mumbai or Pune.",
+        "price": "₹999",
+        "image": "https://www.bhatakna.com/images/kalsubai-trek-transport.jpg"
+      }
+    ],
+    "accommodations": [
+      {
+        "id": 1,
+        "name": "Bhandardara Camping",
+        "location": "Bhandardara",
+        "price": "₹1,200/night",
+        "rating": "4.5",
+        "image": "https://www.yatra.com/images/bhandardara-camping.jpg"
+      },
+      {
+        "id": 2,
+        "name": "MTDC Holiday Resort",
+        "location": "Bhandardara",
+        "price": "₹1,500/night",
+        "rating": "4.2",
+        "image": "https://www.mtdc.co.in/images/bhandardara-resort.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Anandvan Resort",
+        "location": "Bhandardara",
+        "price": "₹2,000/night",
+        "rating": "4.6",
+        "image": "https://www.anandvanresort.com/images/resort.jpg"
+      },
+      {
+        "id": 4,
+        "name": "Yash Resort",
+        "location": "Bhandardara",
+        "price": "₹1,800/night",
+        "rating": "4.3",
+        "image": "https://www.yashresort.com/images/yash-resort.jpg"
+      },
+      {
+        "id": 5,
+        "name": "Hostel Cozy Beds",
+        "location": "Igatpuri",
+        "price": "₹800/night",
+        "rating": "4.0",
+        "image": "https://www.hostelworld.com/images/hostel-cozy-beds.jpg"
+      },
+      {
+        "id": 6,
+        "name": "Nature's Lap Homestay",
+        "location": "Igatpuri",
+        "price": "₹1,000/night",
+        "rating": "4.4",
+        "image": "https://www.airbnb.com/images/natures-lap-homestay.jpg"
+      },
+      {
+        "id": 7,
+        "name": "Tranquil Retreat",
+        "location": "Bhandardara",
+        "price": "₹1,700/night",
+        "rating": "4.5",
+        "image": "https://www.booking.com/images/tranquil-retreat.jpg"
+      },
+      {
+        "id": 8,
+        "name": "Serene Waters Homestay",
+        "location": "Bhandardara",
+        "price": "₹1,600/night",
+        "rating": "4.3",
+        "image": "https://www.homestays.co.in/images/serene-waters.jpg"
+      },
+      {
+        "id": 9,
+        "name": "Mountain View Hostel",
+        "location": "Igatpuri",
+        "price": "₹900/night",
+        "rating": "4.1",
+        "image": "https://www.hostelworld.com/images/mountain-view-hostel.jpg"
+      },
+      {
+        "id": 10,
+        "name": "Peaceful Pines Homestay",
+        "location": "Bhandardara",
+        "price": "₹1,400/night",
+        "rating": "4.2",
+        "image": "https://www.airbnb.com/images/peaceful-pines.jpg"
+      }
+    ]
+  }
+  

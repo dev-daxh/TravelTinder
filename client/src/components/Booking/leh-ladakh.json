@@ -1,0 +1,92 @@
+{
+    "packages": [
+      {
+        "id": 1,
+        "name": "Leh Ladakh Adventure Tour",
+        "description": "Explore the mesmerizing landscapes of Leh Ladakh, including visits to ancient monasteries and high-altitude lakes. Ideal for adventure enthusiasts and culture seekers.",
+        "price": "₹15,000",
+        "image": "https://hikerwolf.com/events/trip-to-ladakh-leh-to-leh/"
+      },
+      {
+        "id": 2,
+        "name": "Ladakh Cultural Expedition",
+        "description": "Immerse yourself in the rich cultural heritage of Ladakh with guided tours to historic sites and local villages. Perfect for cultural enthusiasts.",
+        "price": "₹18,000",
+        "image": "https://www.viamytrip.com/lej-ladakh-tour-package.aspx"
+      },
+      {
+        "id": 3,
+        "name": "Leh Ladakh Trekking Experience",
+        "description": "Embark on thrilling treks through the rugged terrains of Ladakh, offering breathtaking views and unforgettable experiences. Suitable for trekking aficionados.",
+        "price": "₹20,000",
+        "image": "https://www.lehladakhtourism.com/ladakh-packages/"
+      }
+    ],
+    "accommodations": [
+      {
+        "id": 1,
+        "name": "Rainbow Hostelier",
+        "location": "Leh",
+        "price": "₹1,200/night",
+        "rating": "4.5",
+        "image": "https://www.tripadvisor.in/Hotel_Review-g297625-d2227035-Reviews-Rainbow_Hostelier-Leh_Leh_District_Ladakh.html"
+      },
+      {
+        "id": 2,
+        "name": "Hitchhikers Hostel",
+        "location": "Leh",
+        "price": "₹1,500/night",
+        "rating": "4.4",
+        "image": "https://www.tripadvisor.com.au/Hotel_Review-g297625-d18366036-Reviews-Hitchhikers_hostel-Leh_Leh_District_Ladakh.html"
+      },
+      {
+        "id": 3,
+        "name": "Stok Eco Village Homestay",
+        "location": "Stok",
+        "price": "₹1,800/night",
+        "rating": "4.6",
+        "image": "https://www.homestaysofindia.com/ladakh-leh-stok-eco-village-homestay/"
+      },
+      {
+        "id": 4,
+        "name": "Zostel Leh",
+        "location": "Leh",
+        "price": "₹1,400/night",
+        "rating": "4.3",
+        "image": "https://www.tripadvisor.com/Hotel_Review-g297625-d12345678-Reviews-Zostel_Leh-Leh_Leh_District_Ladakh.html"
+      },
+      {
+        "id": 5,
+        "name": "Raybo Hostel",
+        "location": "Leh",
+        "price": "₹1,300/night",
+        "rating": "4.2",
+        "image": "https://www.tripadvisor.com/Hotel_Review-g297625-d23456789-Reviews-Raybo_Hostel-Leh_Leh_District_Ladakh.html"
+      },
+      {
+        "id": 6,
+        "name": "Rover's Den Hostel",
+        "location": "Leh",
+        "price": "₹1,600/night",
+        "rating": "4.4",
+        "image": "https://www.tripadvisor.com/Hotel_Review-g297625-d34567890-Reviews-Rover_s_Den_Hostel-Leh_Leh_District_Ladakh.html"
+      },
+      {
+        "id": 7,
+        "name": "Happy Drifters",
+        "location": "Leh",
+        "price": "₹1,700/night",
+        "rating": "4.5",
+        "image": "https://www.tripadvisor.com/Hotel_Review-g297625-d45678901-Reviews-Happy_Drifters-Leh_Leh_District_Ladakh.html"
+      },
+      {
+        "id": 8,
+        "name": "Hearth Hostel",
+        "location": "Leh",
+        "price": "₹1,350/night",
+        "rating": "4.3",
+        "image": "https://www.tripadvisor.com/Hotel_Review-g297625-d56789012-Reviews-Hearth_Hostel-Leh_Leh_District_Ladakh.html"
+      }
+    ]
+  }
+  
