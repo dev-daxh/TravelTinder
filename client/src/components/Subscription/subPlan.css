@@ -20,11 +20,14 @@
   .subscription-header h2 {
     font-size: 22px;
     font-weight: bold;
+    color: white;
+    
   }
   
   .subscription-header p {
     font-size: 14px;
     color: #e0e0e0;
+    font-weight: 300;
   }
   
   /* Plans List */

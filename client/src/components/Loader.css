@@ -1,0 +1,56 @@
+/* Loader Overlay Styles */
+.loader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+  }
+  
+  .loader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .loader-content > span {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    width: 150px !important;
+    height: 100px !important;
+    position: relative !important;
+  }
+  
+  .loader-content p {
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: 500;
+    margin: 0;
+  }
+  
+  .loader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 1rem;
+    transform: translateY(-10%);
+  }
+  
+  .loader-content p {
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: 500;
+    margin: 0;
+  }

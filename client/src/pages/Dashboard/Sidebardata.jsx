@@ -48,5 +48,11 @@ export const SidebarData = [
     path: '/terms',
     icon: <IoIcons.IoMdHelpCircle style={{ color: 'black' }} />,
     cName: 'nav-text'
+  },
+  {
+    title: 'Profile',
+    path: '/profile',
+    icon: <FaIcons6.FaCircleUser style={{ color: 'black' }} />,
+    cName: 'nav-text'
   }
 ];

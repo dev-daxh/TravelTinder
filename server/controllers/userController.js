@@ -238,7 +238,6 @@ const uploadProfileImage = async (req, res) => {
             return res.status(400).json({ error: 'No file uploaded' });
         }
 
-        const fileExtension = req.file.originalname.split('.').pop();
         const newFileName = `${req.body.email}_profile`;
 
         // Upload to Cloudinary

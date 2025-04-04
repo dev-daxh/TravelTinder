@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import "./bookingMain.css";
 
+
+//remmove this instaed of this fetch data from an json file which store in direcotry
+
 const planData = {
   packages: [
     {
@@ -182,7 +185,7 @@ const planData = {
 const PlanTrip = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState("packages");
- const apiKey = import.meta.env.RAZORPAY_KEY;
+
   const filteredData = planData[activeTab].filter((item) =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );

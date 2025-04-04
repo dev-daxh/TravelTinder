@@ -104,10 +104,11 @@ const LocationSearch = () => {
 
   const handelClickedLocation = (e) => {
     alert("Selected Location: " + e.target.innerText);
-    if(e.target.innerText === "Goa") {
-      window.location.href = "/book";
-    }
-    
+  // Save the searched location to localStorage
+  localStorage.setItem("searchedLocation", e.target.innerText);
+  // Redirect to the booking page
+  window.location.href = "/book";
+ 
   };
   return (
     <div className="location-container" onScroll={handleScroll}>

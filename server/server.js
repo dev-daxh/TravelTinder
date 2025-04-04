@@ -8,6 +8,9 @@ const authRoutes = require('./routes/authRoute');
 const userRoute = require('./routes/userProfileRoute');
 const authPayment = require('./routes/authPayment');
 const jsonRoute = require('./routes/jsonRoute');
+const chatRoute = require('./routes/chatRoute');
+const postRoute = require('./routes/postRoute');
+const homeRoute = require('./routes/homeRoute');
 const app = express();
 const path = require('path');
 const multer = require('multer');
@@ -26,8 +29,15 @@ app.use(
 // Initialize Passport
 app.use(passport.initialize());
 app.use(passport.session());
+const corsOptions = {
+  origin: 'http://localhost:5173', // Allow only this origin
+  methods: ['GET', 'POST'], // Allow only specific methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
+};
 
-app.use(cors());
+app.use(cors(corsOptions));
+
+
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -38,6 +48,9 @@ app.use('/api/uploads', express.static(path.join(__dirname, uploads)));
 app.use('/api/explore', authRoutes);
 app.use('/api/payment', authPayment);
 app.use('/api/json', jsonRoute);
+app.use('/api/post', postRoute);
+app.use('/api/chat', chatRoute);
+app.use('/api/home',homeRoute);
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 

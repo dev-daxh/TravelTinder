@@ -1,107 +1,37 @@
-// import { AnimatePresence, motion } from "framer-motion";
-// import React, { useState, useEffect } from "react";
-// import { FaAngleDown } from "react-icons/fa";
-// import { NavLink } from "react-router-dom";
+import React from 'react';
+import './chatUi.css'; // Importing the CSS file for styling
 
-// const menuAnimation = {
-//   hidden: {
-//     opacity: 0,
-//     height: 0,
-//     padding: 0,
-//     transition: { duration: 0.3, when: "afterChildren" },
-//   },
-//   show: {
-//     opacity: 1,
-//     height: "auto",
-//     transition: {
-//       duration: 0.3,
-//       when: "beforeChildren",
-//     },
-//   },
-// };
-// const menuItemAnimation = {
-//   hidden: (i) => ({
-//     padding: 0,
-//     x: "-100%",
-//     transition: {
-//       duration: (i + 1) * 0.1,
-//     },
-//   }),
-//   show: (i) => ({
-//     x: 0,
-//     transition: {
-//       duration: (i + 1) * 0.1,
-//     },
-//   }),
-// };
+// Example data from JSON (multiple users)
+const usersData = [
+  {
+    profileUrl: 'https://res.cloudinary.com/dkibt7upb/image/upload/v1743571014/uploads/itrnitydaksh%40gmail.com_post_1743571011852.jpeg.jpg',
+    name: 'John Doe',
+  },
+  {
+    profileUrl: 'https://via.placeholder.com/50',
+    name: 'Jane Smith',
+  },
+  {
+    profileUrl: 'https://via.placeholder.com/50',
+    name: 'Mark Johnson',
+  },
+  {
+    profileUrl: 'https://via.placeholder.com/50',
+    name: 'Alice Brown',
+  },
+];
 
-// const SidebarMenu = ({ route, showAnimation, isOpen, setIsOpen }) => {
-//   const [isMenuOpen, setIsMenuOpen] = useState(false);
-//   const toggleMenu = () => {
-//     setIsMenuOpen(!isMenuOpen);
-//     setIsOpen(true);
-//   };
+const ChatUI = () => {
+  return (
+    <div className="chat-container">
+      {usersData.map((user, index) => (
+        <div className="chat-card" key={index}>
+          <img src={user.profileUrl} alt="profile" className="profile-img" />
+          <div className="user-name">{user.name}</div>
+        </div>
+      ))}
+    </div>
+  );
+};
 
-//   useEffect(() => {
-//     if (!isOpen) {
-//       setIsMenuOpen(false);
-//     }
-//   }, [isOpen]);
-//   return (
-//     <>
-//       <div className="menu" onClick={toggleMenu}>
-//         <div className="menu_item">
-//           <div className="icon">{route.icon}</div>
-//           <AnimatePresence>
-//             {isOpen && (
-//               <motion.div
-//                 variants={showAnimation}
-//                 initial="hidden"
-//                 animate="show"
-//                 exit="hidden"
-//                 className="link_text"
-//               >
-//                 {route.name}
-//               </motion.div>
-//             )}
-//           </AnimatePresence>
-//         </div>
-//         {isOpen && (
-//           <motion.div
-//             animate={
-//               isMenuOpen
-//                 ? {
-//                     rotate: -90,
-//                   }
-//                 : { rotate: 0 }
-//             }
-//           >
-//             <FaAngleDown />
-//           </motion.div>
-//         )}
-//       </div>{" "}
-//       <AnimatePresence>
-//         {isMenuOpen && (
-//           <motion.div
-//             variants={menuAnimation}
-//             initial="hidden"
-//             animate="show"
-//             exit="hidden"
-//             className="menu_container"
-//           >
-//             {route.subRoutes.map((subRoute, i) => (
-//               <motion.div variants={menuItemAnimation} key={i} custom={i}>
-//                 <NavLink to={subRoute.path} className="link">
-//                   <div className="icon">{subRoute.icon}</div>
-//                   <motion.div className="link_text">{subRoute.name}</motion.div>
-//                 </NavLink>
-//               </motion.div>
-//             ))}
-//           </motion.div>
-//         )}{" "}
-//       </AnimatePresence>
-//     </>
-//   );
-// };
-
-// export default SidebarMenu;
+export default ChatUI;

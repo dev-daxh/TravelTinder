@@ -393,7 +393,7 @@ useEffect(() => {
       if (response.status === 201) {
         toast.success("Profile created successfully!");
         // Optionally, reset the form data or redirect the user after successful submission
-        navigate('/home');
+        navigate('/FirstPost'); // Redirect to the desired page after successful submission
       }
     } catch (error) {
       toast.error("Error saving profile. Please try again.");

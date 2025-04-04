@@ -1,0 +1,53 @@
+{
+    "1": {
+      "tripsDone": 132,
+      "followers": 100,
+      "rating": 4.2
+    },
+    "2": {
+      "tripsDone": 90,
+      "followers": 200,
+      "rating": 4.7
+    },
+    "3": {
+      "tripsDone": 200,
+      "followers": 150,
+      "rating": 4.9
+    },
+    "4": {
+      "tripsDone": 50,
+      "followers": 50,
+      "rating": 3.8
+    },
+    "5": {
+      "tripsDone": 150,
+      "followers": 120,
+      "rating": 4.5
+    },
+    "6": {
+      "tripsDone": 180,
+      "followers": 300,
+      "rating": 4.8
+    },
+    "7": {
+      "tripsDone": 80,
+      "followers": 250,
+      "rating": 4.1
+    },
+    "8": {
+      "tripsDone": 250,
+      "followers": 400,
+      "rating": 5.0
+    },
+    "9": {
+      "tripsDone": 30,
+      "followers": 30,
+      "rating": 3.5
+    },
+    "10": {
+      "tripsDone": 110,
+      "followers": 180,
+      "rating": 4.3
+    }
+  }
+  

@@ -20,7 +20,8 @@ import FollowPage from './components/explore/explore.jsx';
 import Payment from './components/payment.jsx';
 import ImageUploadForm from './components/img/imgUpload.jsx';
 import PostPage from './components/PostPage/FirstPost/PostPage.jsx';
-
+import Chat from "./components/Slidebar/slidebarmenu.jsx";
+import Loader from './components/loader.jsx';
 
 const App = () => {
   return (
@@ -44,7 +45,8 @@ const App = () => {
         <Route path="/home" element={<Dashboard />} />
         <Route path="/explore" element={<FollowPage />} />
         <Route path="/payment" element={<Payment />} />
-        <Route path="/img" element={<PostPage />} />
+        <Route path="/FirstPost" element={<PostPage />} />
+        <Route path="/chM" element={<Loader />} />
 
 
       </Routes>

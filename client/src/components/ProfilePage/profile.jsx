@@ -1,93 +1,249 @@
-import React, { useState, useEffect } from 'react';
-import './profile.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios"; // Import axios
+import "./profile.css";
+import tripCombinations from "./done.json"; // Import the JSON directly
+import { IoArrowBackCircle } from "react-icons/io5"; // Importing the icon
 
-const AdityaProfile = () => {
+const Profile = () => {
+  const [posts, setPosts] = useState([]); // State to store the posts
+  const [loading, setLoading] = useState(true); // Loading state for fetching
+  const [selectedPost, setSelectedPost] = useState(null); // State to store selected post for display
+  const [userProfile, setUserProfile] = useState(null); // State to store user profile data
+  const [stats, setStats] = useState(null); // State to store user stats (trips, followers, rating)
 
-  const handelFollowAction = () => {
-    const followButton = document.querySelector('.follow-button');
-    const follower = document.querySelector('.stat-followers .stat-value');
+  useEffect(() => {
+    // Get email from localStorage
+    const email = localStorage.getItem("email");
 
-    if (followButton.innerText === 'Follow') {
-      followButton.innerText = 'Following';
-      follower.innerText = parseInt(follower.innerText) + 1;
+    if (email) {
+      // Fetch user profile data
+      axios
+        .get(`http://localhost:3001/api/post/get-profile?email=${email}`)
+        .then((response) => {
+          setUserProfile(response.data.profile); // Store profile data in state
 
+          // Check if there's a "followInfo" in localStorage
+          let followInfo = localStorage.getItem("followInfo");
+
+          if (!followInfo) {
+            const randomKey = Math.floor(Math.random() * 10) + 1; // Random number between 1 and 10
+            localStorage.setItem("followInfo", randomKey); // Store selected key in localStorage
+            followInfo = randomKey; // Use the randomly selected key
+          }
+
+          // Fetch the stats from the tripCombinations based on the key
+          const userStats = tripCombinations[followInfo];
+          setStats(userStats); // Set stats from the selected combination
+        })
+        .catch((error) => {
+          console.error("Error fetching user profile:", error);
+        });
+
+      // Fetch the posts data as well
+      axios
+        .get(`http://localhost:3001/api/post/get-post?email=${email}`)
+        .then((response) => {
+          const postsData = response.data.posts;
+
+          if (Object.keys(postsData).length > 0) {
+            const postsArray = Object.keys(postsData).map((key) => {
+              const post = postsData[key];
+              return {
+                imageUrl: post.imgageUrl || post.imageUrl,
+                caption: post.caption,
+                timestamp: post.timestamp,
+              };
+            });
+            setPosts(postsArray);
+          } else {
+            setPosts([]); // Empty posts array
+          }
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error fetching posts:", error);
+          setLoading(false);
+        });
     } else {
-      followButton.innerText = 'Follow';
-      follower.innerText = parseInt(follower.innerText) - 1;
-
+      setLoading(false); // Stop loading if no email is found
     }
-  }
+  }, []); // Run this effect only once when the component mounts
+
+  const handleFollowAction = () => {
+    const followButton = document.querySelector(".follow-button");
+    const follower = document.querySelector(".stat-followers .stat-value");
+
+    if (followButton.innerText === "Follow") {
+      followButton.innerText = "Following";
+      follower.innerText = parseInt(follower.innerText) + 1;
+    } else {
+      followButton.innerText = "Follow";
+      follower.innerText = parseInt(follower.innerText) - 1;
+    }
+  };
+
+  const handlePostClick = (post) => {
+    setSelectedPost(post);
+  };
+
+  const handleClosePost = () => {
+    setSelectedPost(null);
+  };
+
   return (
     <div className="aditya-profile">
       <header className="app-bar">
-        {/* <button className="back-button" onClick={() => window.history.back()}>
-          <i className="material-icons">arrow_back</i>
+        <button className="back-button" onClick={() => window.history.back()}>
+          <IoArrowBackCircle size={30} />
         </button>
-        <h1 className="profile-title">Profile</h1> */}
       </header>
 
       <div className="profile-container">
         <div className="profile-header">
           <div className="profile-image-container">
-            <img
-              className="cover-image"
-              src="https://images.pexels.com/photos/691668/pexels-photo-691668.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-              alt="Cover"
-            />
-            <div className="profile-avatar-container">
-              <img
-                className="profile-avatar"
-                src="https://images.pexels.com/photos/15684227/pexels-photo-15684227/free-photo-of-man-with-mustache-standing-in-a-train-doorway.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                alt="Profile Avatar"
-              />
-            </div>
+            {/* Show skeleton loader while loading */}
+            {loading ? (
+              <div className="skeleton skeleton-image"></div>
+            ) : (
+              <>
+                <img
+                  className="cover-image"
+                  src="https://images.pexels.com/photos/691668/pexels-photo-691668.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                  alt="Cover"
+                />
+                <div className="profile-avatar-container">
+                  <img
+                    className="profile-avatar"
+                    src={
+                      userProfile?.profilePicture ||
+                      "https://via.placeholder.com/150"
+                    } // Display user's profile image or a fallback image
+                    alt="Profile Avatar"
+                  />
+                </div>
+              </>
+            )}
           </div>
-          <button className="follow-button" onClick={handelFollowAction}>Follow</button>
-          <button className="chat-button" onClick={() => window.location.href = '/chat'}>Chat</button>
+          {loading ? (
+            <div
+              className="skeleton skeleton-text"
+              style={{ width: "200px", height: "30px", margin: "10px auto" }}
+            ></div>
+          ) : (
+            <button className="follow-button" onClick={handleFollowAction}>
+              Follow
+            </button>
+          )}
+          {loading ? (
+            <div
+              className="skeleton skeleton-text"
+              style={{ width: "100px", height: "30px", margin: "10px auto" }}
+            ></div>
+          ) : (
+            <button
+              className="chat-button"
+              onClick={() => (window.location.href = "/chat")}
+            >
+              Chat
+            </button>
+          )}
         </div>
 
         <div className="profile-info">
-          <h2 className="name">Aditya K.</h2>
+          {loading ? (
+            <>
+              <div
+                className="skeleton skeleton-text"
+                style={{ width: "200px", height: "30px", margin: "10px auto" }}
+              ></div>
+              <div
+                className="skeleton skeleton-text"
+                style={{ width: "300px", height: "20px", margin: "10px auto" }}
+              ></div>
+            </>
+          ) : (
+            <>
+              <h2 className="name">
+                {userProfile?.firstName} {userProfile?.lastName}
+              </h2>
+              <p className="bio">{userProfile?.bio}</p>
+            </>
+          )}
 
           <div className="stats-container">
-            <div className="stat">
-              <p className="stat-value">132</p>
-              <p className="stat-label">trip's done</p>
-            </div>
-            <div className="stat-followers">
-              <p className="stat-value">100</p>
-              <p className="stat-label">Followers</p>
-            </div>
-            <div className="stat">
-              <p className="stat-value">4.2</p>
-              <p className="stat-label">rating</p>
-            </div>
+            {loading ? (
+              <>
+                <div className="skeleton skeleton-stat"></div>
+                <div className="skeleton skeleton-stat"></div>
+                <div className="skeleton skeleton-stat"></div>
+              </>
+            ) : (
+              <>
+                <div className="stat">
+                  <p className="stat-value">{stats?.tripsDone}</p>{" "}
+                  {/* Optional chaining added */}
+                  <p className="stat-label">trip's done</p>
+                </div>
+                <div className="stat-followers">
+                  <p className="stat-value">{stats?.followers}</p>{" "}
+                  {/* Optional chaining added */}
+                  <p className="stat-label">Followers</p>
+                </div>
+                <div className="stat">
+                  <p className="stat-value">{stats?.rating}</p>{" "}
+                  {/* Optional chaining added */}
+                  <p className="stat-label">rating</p>
+                </div>
+              </>
+            )}
           </div>
 
           <div className="recent-trips">
             <div className="recent-trips-header">
               <h3>Recent trips</h3>
-              <a href="/show-all" className="show-all-link">Show All</a>
+              <a href="/FirstPost" className="show-all-link">
+                Upload Post
+              </a>
             </div>
-            <div className="trips-grid">
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRzZQfMMPxOsgjPNgVIkqNeQ3Qlb0Clk65Dw&s" alt="Trip" />
-              <img src="https://findyouradventure.in/wp-content/uploads/2022/09/259964698_747358246191714_6973046184021662842_n.jpg" alt="Trip" />
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQi6r76lAfoGfy9a3prmit0hLQHh7-JYP9TIL5FPkzP9R10N0QoAqX5GMCTYXPD0DRN6Po&usqp=CAU" alt="Trip" />
-              <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRItm-fcLcGbfwdNasdrlPN3nERZzK4oMCcow&s' alt='Trip' />
-              <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGPGQ2tU2Zh18xbPY3th58YQGXdSSKrdJsHQ&s' alt='Trip' />
-              <img src='' alt='Fetch photos from api' />
-              <img src='' alt='Fetch photos from api' />
-
-              <img src='' alt='Fetch photos from api' />
-
-              <img src='' alt='Fetch photos from api' />
-
+            <div className="trips-grid-profile">
+              {loading ? (
+                <>
+                  <div className="skeleton skeleton-post"></div>
+                  <div className="skeleton skeleton-post"></div>
+                  <div className="skeleton skeleton-post"></div>
+                </>
+              ) : posts.length > 0 ? (
+                posts.map((post, index) => (
+                  <div
+                    key={index}
+                    className="trip-item"
+                    onClick={() => handlePostClick(post)}
+                  >
+                    <img src={post.imageUrl} alt={`Trip ${index}`} />
+                  </div>
+                ))
+              ) : (
+                <p>No posts found</p>
+              )}
             </div>
           </div>
         </div>
       </div>
+
+      {selectedPost && (
+        <div className="post-overlay" onClick={handleClosePost}>
+          <div className="post-content">
+            <img
+              className="post-image"
+              src={selectedPost.imageUrl}
+              alt="Selected Post"
+            />
+            <p className="post-caption">{selectedPost.caption}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
-export default AdityaProfile;
+export default Profile;

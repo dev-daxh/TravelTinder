@@ -1,105 +1,297 @@
-.follow-page {
-    width: 100%;
-    max-width: 100%;  /* Use full width for mobile */
-    margin: auto;
-    font-family: Arial, sans-serif;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    box-sizing: border-box;
-    overflow-x: hidden; /* Prevent horizontal scroll */
+/* Explore Container */
+.explore-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.explore-title {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.explore-subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Trips Grid */
+.trips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* Trip Card */
+.trip-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.trip-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.trip-image {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.trip-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.badge-icon {
+  margin-right: 5px;
+  font-size: 0.8rem;
+}
+
+.trip-info {
+  padding: 1.5rem;
+}
+
+.trip-destination {
+  font-size: 1.3rem;
+  margin: 0 0 0.5rem 0;
+  display: flex;
+  align-items: center;
+}
+
+.trip-destination .icon {
+  margin-right: 8px;
+  color: #4CAF50;
+}
+
+.trip-dates {
+  display: flex;
+  align-items: center;
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.trip-dates .icon {
+  margin-right: 8px;
+  color: #2196F3;
+}
+
+.trip-host {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.host-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.trip-modal {
+  background: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.modal-overlay.open .trip-modal {
+  transform: translateY(0);
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+
+.close-modal:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: rotate(90deg);
+}
+
+.modal-image {
+  height: 250px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.modal-badge {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.modal-content {
+  padding: 2rem;
+}
+
+.modal-destination {
+  font-size: 1.8rem;
+  margin: 0 0 1rem 0;
+  display: flex;
+  align-items: center;
+}
+
+.modal-destination .icon {
+  margin-right: 10px;
+  color: #4CAF50;
+}
+
+.modal-dates {
+  display: flex;
+  align-items: center;
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.modal-dates .icon {
+  margin-right: 10px;
+  color: #2196F3;
+}
+
+.modal-description {
+  margin-bottom: 2rem;
+}
+
+.modal-description h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.modal-description p {
+  color: #666;
+  line-height: 1.6;
+}
+
+.join-button {
+  width: 100%;
+  padding: 15px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 2rem;
+}
+
+.join-button:hover {
+  background: #3d8b40;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-host {
+  display: flex;
+  align-items: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid #eee;
+}
+
+.modal-host .host-avatar {
+  width: 60px;
+  height: 60px;
+  margin-right: 15px;
+}
+
+.host-info h4 {
+  margin: 0 0 5px 0;
+  font-size: 1.2rem;
+}
+
+.host-bio {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .trips-grid {
+    grid-template-columns: 1fr;
   }
   
-  .user-card {
-    display: flex;
-    flex-direction: column;  /* Stack elements vertically on mobile */
-    align-items: flex-start;
-    width: 100%;
-    max-width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    box-sizing: border-box;
+  .trip-modal {
+    width: 95%;
   }
   
-  .profile-pic {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    flex-shrink: 0;
+  .modal-destination {
+    font-size: 1.5rem;
   }
-  
-  .user-info {
-    flex: 1;
-    margin-left: 0;
-    margin-bottom: 5px;  /* Space between user info and button */
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-  }
-  
-  .username {
-    font-weight: bold;
-    font-size: 14px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
-  .name {
-    color: gray;
-    font-size: 12px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
-  .mutual {
-    color: #888;
-    font-size: 11px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
-  .follow-btn {
-    background-color: #0095f6;
-    color: white;
-    border: none;
-    padding: 8px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: 0.3s ease;
-    flex-shrink: 0;
-    width: 100%;  /* Make the follow button take full width on small screens */
-    margin-top: 10px;  /* Add spacing between the user info and button */
-  }
-  
-  .follow-btn.following {
-    background-color: #ccc;
-    color: black;
-  }
-  
-  /* Larger screens adjustments (e.g., tablet, desktop) */
-  @supports (display: grid) {
-    .user-card {
-      flex-direction: row;  /* Switch back to row layout on larger screens */
-      align-items: center;
-    }
-  
-    .user-info {
-      margin-left: 10px;  /* Spacing between user info and follow button */
-      margin-bottom: 0;
-    }
-  
-    .follow-btn {
-      width: auto;  /* Allow the follow button to shrink to fit content */
-      padding: 6px 10px;  /* Adjust padding for larger screens */
-    }
-  }
-  
+}

@@ -1,0 +1,41 @@
+/* Main container styling */
+.chat-container {
+    display: flex;
+    /* justify-content: center;
+    align-items: center; */
+    min-height: 100vh;
+    background-color: #f1f1f1;
+  }
+  
+  /* Chat card styling */
+  .chat-card {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    width: 97%;
+
+    margin: 2%;
+    margin-left: 6px;
+   
+  }
+  
+  /* Profile image styling */
+  .profile-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+  }
+  
+  /* User name styling */
+  .user-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+  
