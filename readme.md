@@ -99,7 +99,12 @@ CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
 ```
 
-4. Start the backend server:
+4. Api documentation is available on Postman
+
+ https://documenter.getpostman.com/view/36485859/2sB2cVe22s
+
+
+5. Start the backend server:
 
 ```bash
 npm start
