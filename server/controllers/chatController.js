@@ -1,6 +1,7 @@
 const express = require('express');
 const db = require('../config/firebase');
 
+//const Message = require('../models/messageModel');
 
 const getChatMainData = async (req, res) => {
     try {
@@ -27,9 +28,25 @@ const getChatMainData = async (req, res) => {
       return res.status(500).json({ error: 'Internal server error' });
     }
   };
+
+
+  // class ChatController {
+  //   static handleUserMessage(socket, message) {
+  //     // Create a new message object (model)
+  //     const newMessage = new Message(message);
   
+  //     // Emit message to all connected clients
+  //     socket.broadcast.emit('message', newMessage); // broadcast to all clients except the sender
+  
+  //     // Optionally log the message to the console for debugging purposes
+  //     console.log(`New message received: ${newMessage.content} at ${newMessage.timestamp}`);
+  //   }
+  // }
+
+
 
 
 module.exports = {
   getChatMainData,
-};
+  //ChatController
+  };

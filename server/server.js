@@ -16,7 +16,37 @@ const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
 const uploads = 'uploads';
+const http = require('http');
+const socketIo = require('socket.io');
 
+const server = http.createServer(app);
+const io = socketIo(server, {
+    cors: {
+      origin: "http://localhost:5173", // Allow your frontend's URL
+      methods: ["GET", "POST"],
+      allowedHeaders: ["Content-Type"],
+      credentials: true
+    }
+  });
+app.get('/chat', (req, res) => {
+  res.send('Chat server is running');
+});
+// Handling real-time chat
+io.on('connection', (socket) => {
+  console.log('A user connected');
+  
+  // Listen for messages from the client
+  socket.on('sendMessage', (message) => {
+      console.log('Received message:', message);
+      
+      // Broadcast the message to all clients
+      io.emit('newMessage', message);
+  });
+
+  socket.on('disconnect', () => {
+      console.log('A user disconnected');
+  });
+});
 // Session setup
 app.use(
   session({

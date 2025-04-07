@@ -167,3 +167,12 @@
   visibility: visible;
   opacity: 1;
 }
+.message.sent {
+  background-color: #080808; /* Sent message background */
+  text-align: right;
+}
+
+.message.received {
+  background-color: #f1f1f1; /* Received message background */
+  text-align: left;
+}

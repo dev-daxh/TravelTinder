@@ -20,8 +20,9 @@ import FollowPage from './components/explore/explore.jsx';
 import Payment from './components/payment.jsx';
 import ImageUploadForm from './components/img/imgUpload.jsx';
 import PostPage from './components/PostPage/FirstPost/PostPage.jsx';
-import Chat from "./components/Slidebar/slidebarmenu.jsx";
+// import Chat from "./components/Slidebar/slidebarmenu.jsx";
 import Loader from './components/loader.jsx';
+// import ChatTest from './components/Chats/chat.jsx';
 
 const App = () => {
   return (
@@ -46,8 +47,8 @@ const App = () => {
         <Route path="/explore" element={<FollowPage />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/FirstPost" element={<PostPage />} />
-        <Route path="/chM" element={<Loader />} />
-
+        <Route path="/loader" element={<Loader />} />
+        {/* <Route path="/test-chat" element={<ChatTest />} /> */}
 
       </Routes>
     </Router>
