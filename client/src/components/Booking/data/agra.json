@@ -1,0 +1,57 @@
+{
+  "packages": [
+    {
+      "id": 1,
+      "name": "Agra Heritage Tour",
+      "description": "Explore the rich history of Agra with visits to the Taj Mahal, Agra Fort, and Fatehpur Sikri.",
+      "price": "₹8,313",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Agra_Fort_-_panoramio_%281%29.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Sunrise at Taj Mahal",
+      "description": "Witness the breathtaking sunrise at the Taj Mahal, followed by a guided tour of the monument.",
+      "price": "₹1,500",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/1/1e/Taj_Mahal_Sunrise_Dome_Shadow.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Agra Food Walk",
+      "description": "Indulge in Agra's culinary delights with a guided food tour through the city's famous eateries.",
+      "price": "₹1,200",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/3/3b/Agra_Street_Food.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Mughal Architecture Tour",
+      "description": "Dive deep into Mughal architecture with visits to lesser-known monuments and a detailed guide.",
+      "price": "₹1,800",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Itmad-ud-Daulah%27s_Tomb_Agra.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Yamuna River Boat Ride",
+      "description": "Enjoy a serene boat ride on the Yamuna River with a unique view of the Taj Mahal from the water.",
+      "price": "₹1,000",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/8/84/Taj_Mahal_from_Yamuna_River.jpg"
+    }
+  ],
+  "accommodations": [
+    {
+      "id": 1,
+      "name": "Hotel Sidhartha",
+      "location": "Fatehabad Road",
+      "price": "₹1,048/night",
+      "rating": "3.9",
+      "image": "https://www.hotelsidharthaagra.com/images/gallery/1.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Joey's Hostel Agra",
+      "location": "Tajganj",
+      "price": "₹733/night",
+      "rating": "4.2",
+      "image": "https://r2imghtlak.mmtcdn.com/r2-mmt-htl-image/htl-imgs/201812201257257590-193c09587b7211eb91500242ac110002.jpg"
+}
+  ]
+}

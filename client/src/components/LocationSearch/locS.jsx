@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./locS.css";
-
+import { useNavigate } from "react-router-dom"; // Importing useNavigate for navigation
 const locationsData = [
   { id: 1, name: "Hampi" },
   { id: 2, name: "Kalsubai" },
@@ -59,7 +59,7 @@ const LocationSearch = () => {
   const [displayedLocations, setDisplayedLocations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-
+  const navigate = useNavigate(); // Initialize useNavigate
   // Load more locations as the user scrolls
   const loadMoreLocations = () => {
     if (loading || !hasMore) return;
@@ -103,18 +103,23 @@ const LocationSearch = () => {
   }, []);
 
   const handelClickedLocation = (e) => {
-    alert("Selected Location: " + e.target.innerText);
-  // Save the searched location to localStorage
-  localStorage.setItem("searchedLocation", e.target.innerText);
-  // Redirect to the booking page
-  window.location.href = "/book";
- 
+    const locationName = e.target.innerText;
+    // Save the searched location to localStorage
+    localStorage.setItem("searchedLocation", locationName);
+    // Redirect to the booking page
+    window.location.href = "/book";
   };
+
+  const handleBack = () => {
+    // Redirect to the previous page
+    navigate('/home');
+  }
+  
   return (
     <div className="location-container" onScroll={handleScroll}>
       {/* Header */}
       <header className="location-header">
-        <button className="back-button">&#8592;</button>
+        <button onClick={handleBack} className="back-button">&#8592;</button>
         <h2>Search Locations</h2>
       </header>
 

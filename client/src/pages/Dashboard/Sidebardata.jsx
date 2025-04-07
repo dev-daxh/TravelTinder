@@ -25,12 +25,12 @@ export const SidebarData = [
     icon: <BsIcons.BsCalendar2WeekFill style={{ color: 'black' }} />,
     cName: 'nav-text'
   },
-  {
-    title: 'Explore',
-    path: '/explore',
-    icon: <MdIcons.MdTravelExplore  style={{ color: 'black' }} />,
-    cName: 'nav-text'
-  },
+  // {
+  //   title: 'Explore',
+  //   path: '/explore',
+  //   icon: <MdIcons.MdTravelExplore  style={{ color: 'black' }} />,
+  //   cName: 'nav-text'
+  // },
   {
     title: 'Subscriptions',
     path: '/subscription',
