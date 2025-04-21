@@ -3,10 +3,12 @@ import "./loginT&C.css";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import { Bounce } from 'react-toastify';
-import axios from 'axios'; // Import Axios
+import axios from 'axios';
+import Loader from "../loader";
 
 const LoginTerms = () => {
   const [isChecked, setIsChecked] = useState(false);
+  const [loading, setLoading] = useState(false); // Loader state
   const navigate = useNavigate();
 
   const handleCheckboxChange = () => {
@@ -18,8 +20,8 @@ const LoginTerms = () => {
       const savedEmail = localStorage.getItem("email");
 
       if (savedEmail) {
+        setLoading(true); // Show loader
         try {
-          // Axios POST request to check the user by email
           const response = await axios.post("http://localhost:3001/api/user/search-user", {
             email: savedEmail,
           });
@@ -27,63 +29,40 @@ const LoginTerms = () => {
           const data = response.data;
           console.log("Response Data:", data);
 
-          // Check the response message from the server
-          if (data.message == 'found') {
-            // User found, navigate to /home
+          if (data.message === 'found') {
             toast.success("Welcome back!", {
               position: "top-right",
               autoClose: 1700,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
               theme: "light",
               transition: Bounce,
               onClose: () => navigate("/home"),
             });
-          } else if (data.message == 'not') {
-            // User not found, navigate to /profile-setup
+          } else if (data.message === 'not') {
             toast.success("Welcome new user! Please complete your profile.", {
               position: "top-right",
               autoClose: 1700,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
               theme: "light",
               transition: Bounce,
               onClose: () => navigate("/profile-setup"),
             });
           } else {
-            // Unexpected response from the server
             toast.error("Something went wrong!", {
               position: "top-right",
               autoClose: 1700,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
               theme: "light",
               transition: Bounce,
             });
           }
         } catch (error) {
           console.error("Axios error:", error);
-          // If there's an error (e.g., network issue or server error), show a toast
           toast.error("Something went wrong!", {
             position: "top-right",
             autoClose: 1700,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
             theme: "light",
             transition: Bounce,
           });
+        } finally {
+          setLoading(false); // Hide loader
         }
       }
     }
@@ -91,10 +70,13 @@ const LoginTerms = () => {
 
   return (
     <div className="terms-container">
+      {loading && <Loader message="Sit back & Relax" />} {/* Show loader when loading */}
+      
       <h1>Terms and Conditions</h1>
       <p>Please read and accept our terms before proceeding.</p>
 
       <div className="terms-content">
+        {/* All your T&C sections here... (same as your original code) */}
         <h2>1. Introduction</h2>
         <p>Welcome to our service. By using this platform, you agree to comply with and be bound by these terms and conditions.</p>
 
@@ -128,8 +110,8 @@ const LoginTerms = () => {
           <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />
           I have read and agree to the Terms and Conditions
         </label>
-        <button className="accept" onClick={handleAccept} disabled={!isChecked}>
-          Accept and Continue
+        <button className="accept" onClick={handleAccept} disabled={!isChecked || loading}>
+          {loading ? "Processing..." : "Accept and Continue"}
         </button>
         <ToastContainer />
       </div>

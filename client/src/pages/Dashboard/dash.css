@@ -143,7 +143,88 @@
 span {
   margin-left: 16px;
 }
+/* Enhanced User Profile Section Styles */
+.user-profile-container {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 5px;
+  margin: 10px;
+  background-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.nav-menu-items li {
+  margin-bottom: 19px; /* adjust spacing as needed */
+}
 
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 2px solid #fff;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: baseline;
+}
+
+.user-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #f44336;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  color: #d32f2f;
+  transform: translateX(3px);
+}
+
+.logout-btn svg {
+  font-size: 16px;
+}
+
+.default-avatar svg {
+  font-size: 28px;
+  color: #666;
+}
+
+/* Adjust nav-text margin to account for profile section */
+.nav-text {
+  margin-top: 0;
+}
+/* Adjust nav-text margin to account for profile section */
+.nav-text {
+  margin-top: 0;
+}
 /* Content */
 .content {
   display: flex;
@@ -330,4 +411,50 @@ span {
 .version-text {
   color: #000000;
   font-weight: bold;
+}
+
+
+.match-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.match-message {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  color: #ff4081;
+  animation: popUp 0.6s ease-in-out;
+  padding: 30px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.1);
+}
+
+@keyframes popUp {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

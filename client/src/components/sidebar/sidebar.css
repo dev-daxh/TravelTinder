@@ -1,0 +1,115 @@
+/* Navbar */
+.navbar {
+    background: url("https://png.pngtree.com/background/20210710/original/pngtree-travel-around-the-world-picture-image_1019959.jpg")
+        no-repeat center center/cover;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0; /* This makes it take full width */
+        height: 80px;
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        z-index: 1000; /* Ensure it's above other content */
+  }
+  
+  .navbar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: -1;
+  }
+  
+  .menu-bars {
+    margin-left: 2rem;
+    font-size: 2rem;
+    background: none;
+    color: #000000;
+    transition: transform 0.3s ease;
+  }
+  
+  .menu-bars:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Sidebar Menu */
+  .nav-menu {
+    background: url("https://png.pngtree.com/background/20210710/original/pngtree-travel-around-the-world-picture-image_1019959.jpg")
+      no-repeat center center/cover;
+    width: 250px;
+    height: calc(100vh - 80px);
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 80px;
+    left: -100%;
+    transition: 850ms;
+    z-index: 100;
+  }
+  
+  .nav-menu::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.4);
+    z-index: -1;
+  }
+  
+  .nav-menu.active {
+    left: 0;
+    transition: 350ms;
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .nav-text {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 8px 0px 8px 16px;
+    list-style: none;
+    height: 60px;
+    margin-top: 30px;
+  }
+  
+  .nav-text a {
+    text-decoration: none;
+    color: #000000;
+    font-size: 24px;
+    font-weight: 550;
+    width: 95%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    border-radius: 4px;
+    gap: 15px;
+    transition: all 0.3s ease;
+  }
+  
+  .nav-text a:hover {
+    background-color: #1a83ff;
+    transform: translateX(5px);
+  }
+  
+  .nav-menu-items {
+    width: 100%;
+  }
+  
+  .navbar-toggle {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+  }
+  
+  span {
+    margin-left: 16px;
+  }

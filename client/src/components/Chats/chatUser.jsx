@@ -1,11 +1,30 @@
+
 import React, { useEffect, useState } from "react";
 import "./ChatUser.css";
 import { useNavigate } from "react-router-dom";
-import { FaCamera, FaPaperclip } from "react-icons/fa"; // Importing React Icons
+import { FaCamera, FaPaperclip } from "react-icons/fa";
 import { io } from "socket.io-client";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import LogoComponent from "../logoCom";
 
-const socket = io("http://localhost:8080"); // Replace with your server URL
+const socket = io("http://localhost:8080");
 
+// Add this new component at the top of your file (before ChatUser)
+const Logo = () => {
+  const navigate = useNavigate();
+
+  return (
+    <div className="logo-container">
+      <img 
+        src="https://static.vecteezy.com/system/resources/previews/009/297/690/non_2x/india-travel-logo-vector.jpg" 
+        alt="Company Logo" 
+        className="logo-image"
+        onClick={() => navigate('/home')}
+      />
+    </div>
+  );
+};
 const ChatUser = () => {
   const [message, setMessage] = useState(""); // Input message
   const [messages, setMessages] = useState([]); // List of messages
@@ -42,15 +61,28 @@ const ChatUser = () => {
 
   const sendMessage = () => {
     if (message.trim()) {
-      // Emit the message to the server
+      // Check for 4 or more continuous digits
+      const digitMatch = message.match(/\d{4,}/);
+      if (digitMatch) {
+        toast.warning("For your privacy, please avoid sharing contact numbers in chat.",
+          {
+            position: "top-center",
+            autoClose: 2500,
+            
+          }
+        );
+        return; // Stop sending the message
+      }
+  
       socket.emit("sendMessage", message);
       setMessages((prevMessages) => [
         ...prevMessages,
-        { sender: "me", text: message }, // Add the sent message to the state
+        { sender: "me", text: message },
       ]);
-      setMessage(""); // Clear the input field after sending
+      setMessage("");
     }
   };
+  
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -61,12 +93,20 @@ const ChatUser = () => {
   const handleVideo = () => {
     alert("Video call feature is not implemented yet.");
     navigate("/chat-video");
-  };
+  }; 
+  const handleBack = () => {
+    // Redirect to the previous page
+    location.href = "/chat";
+  }
+  
 
   return (
     <div className="chat-container">
+
       <header className="chat-header">
         <div className="user-info-chat">
+        <button onClick={handleBack} className="back-button-chat">&#8592;</button>
+
           <img
             src={chatProfile || "https://via.placeholder.com/40"} // Default image if not available
             alt="User"
@@ -81,16 +121,16 @@ const ChatUser = () => {
         </div>
 
         <div className="chat-actions">
-          <button className="icon-button-chat" onClick={handleVideo} title="Video Call">
+          {/* <button className="icon-button-chat" onClick={handleVideo} title="Video Call">
             <div className="tooltip">
               <FaCamera className="icon" />
               <span className="tooltip-text">Video Call</span>
             </div>
-          </button>
+          </button> */}
 
           <button className="icon-button-chat" title="Booking" onClick={() => navigate("/search")}>
             <div className="tooltip">
-              <FaPaperclip className="icon" />
+              <img className="icon" src="https://cdn-icons-png.flaticon.com/512/2356/2356937.png" />
               <span className="tooltip-text">Booking</span>
             </div>
           </button>
@@ -122,6 +162,8 @@ const ChatUser = () => {
           &#10148;
         </button>
       </footer>
+      <ToastContainer position="top-center" />
+
     </div>
   );
 };

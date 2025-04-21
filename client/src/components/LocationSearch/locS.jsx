@@ -112,7 +112,7 @@ const LocationSearch = () => {
 
   const handleBack = () => {
     // Redirect to the previous page
-    navigate('/home');
+    window.history.back();
   }
   
   return (

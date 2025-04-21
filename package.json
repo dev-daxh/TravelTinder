@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "@cspell/cspell-bundled-dicts": "^8.18.1"
+  }
+}

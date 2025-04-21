@@ -41,11 +41,11 @@ const Landing = () => {
         <h2 className="headline">Find Your next adventure Together</h2>
 
         {/* Conditionally render the button */}
-        {isButtonVisible && (
+        {/* {isButtonVisible && (
           <button className="get-started-button" onClick={() => {}}>
             Get Started
           </button>
-        )}
+        )} */}
       </div>
     </div>
   );

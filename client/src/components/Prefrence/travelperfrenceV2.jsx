@@ -82,7 +82,6 @@ const TravelPreferencesFormV2 = ({ formData, setFormData }) => {
               "💬 Chat frequently",
               "📷 Share photos & videos",
               "🤫 Prefer minimal chat",
-              "📞 Voice calls only",
             ],
             state: communicationStyle,
             setState: setCommunicationStyle,

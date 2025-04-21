@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Auth from './components/auth/auth.jsx';
-import LandingPage from './components/Landing/Landing.jsx';
+import LandingPage from './components/Landing/landing.jsx';
 import LoginTerms from './components/T&C/loginTC.jsx';
 import ProfilePersonal from './components/profileSetup/profilePersonal.jsx';
 import PhoneAuth from './components/Prefrence/phoneAuth.jsx';
@@ -22,6 +22,10 @@ import ImageUploadForm from './components/img/imgUpload.jsx';
 import PostPage from './components/PostPage/FirstPost/PostPage.jsx';
 // import Chat from "./components/Slidebar/slidebarmenu.jsx";
 import Loader from './components/loader.jsx';
+import ProfileMatch from './pages/Dashboard/profile.jsx';
+import TripOnboarding from './components/Booking/tripOnboarding.jsx';
+import LogoComponent from './components/logoCom.jsx';
+import Profile from './components/ProfilePage/profileUser.jsx';
 // import ChatTest from './components/Chats/chat.jsx';
 
 const App = () => {
@@ -36,6 +40,8 @@ const App = () => {
         <Route path="/phone-auth" element={<PhoneAuth />} />
         <Route path="/phone-auth2" element={<TravelPreferencesFormV2 />} />
         <Route path="/profile" element={<AdityaProfileWidget />} />
+        <Route path="/profile-user" element={<Profile />} />
+
         <Route path="/chat" element={<ChatsMain />} />
         <Route path="/chat-user" element={<ChatUser />} />
         <Route path="/chat-video" element={<VideoCall />} />
@@ -48,7 +54,10 @@ const App = () => {
         <Route path="/payment" element={<Payment />} />
         <Route path="/FirstPost" element={<PostPage />} />
         <Route path="/loader" element={<Loader />} />
-        {/* <Route path="/test-chat" element={<ChatTest />} /> */}
+        <Route path="/profile-match" element={<ProfileMatch />} />
+        <Route path="/trip-onboarding" element={<TripOnboarding />} />
+
+        <Route path="/test" element={<LogoComponent />} />
 
       </Routes>
     </Router>

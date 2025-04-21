@@ -6,6 +6,14 @@
     flex-direction: column;
     align-items: center;
   }
+
+  .back-button-sub{
+    color: white;
+    background:linear-gradient(135deg, #3700b3, #6200ea);
+    border: none;
+    height: 30px;
+    width: 30px;
+  }
   
   /* Header */
   .subscription-header {

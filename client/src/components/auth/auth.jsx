@@ -15,13 +15,7 @@ const AuthPage = () => {
   const [sentemail, setSentEmail] = useState(""); //  email
   // Check localStorage for existing email on component mount
   useEffect(() => {
-    const savedEmail = localStorage.getItem("email");
-    if (savedEmail) {
-      // setEmail(savedEmail);  // If email exists, set it in state
-      // setIsButtonEnabled(true);  // Enable the Continue button
-      //handel the firebase auth
-      // console.log(savedEmail);
-    }
+    localStorage.clear();
   }, []);
   // Handle email input change
   const handleEmailChange = (e) => {

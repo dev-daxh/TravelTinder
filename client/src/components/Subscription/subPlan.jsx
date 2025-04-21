@@ -92,18 +92,24 @@ const SubscriptionPlans = () => {
     }
 
     const options = {
-      key: "", // Replace with your Razorpay key
+      key: "rzp_test_OgBgPiHR93lvSY", // Replace with your Razorpay key
       amount: amount,
       currency: "INR",
       name: "Travel Tinder",
       description: "Payment for selected subscription plan",
       image:
         "https://as2.ftcdn.net/v2/jpg/00/65/48/25/1000_F_65482539_C0ZozE5gUjCafz7Xq98WB4dW6LAhqKfs.jpg",
-      handler: function (response) {
-        console.log("Payment successful, Razorpay ID:", response.razorpay_payment_id);
-        alert("Payment successful: " + response.razorpay_payment_id);
-        // You can also send the payment ID to your server for further verification if needed.
-      },
+        handler: function (response) {
+          console.log("Payment successful, Razorpay ID:", response.razorpay_payment_id);
+          alert("Payment successful: " + response.razorpay_payment_id);
+        
+          // ✅ Save subscription status to localStorage
+          localStorage.setItem("subscription", "done");
+          
+          // Optionally navigate to homepage or chats
+          window.location.href = "/chat";
+        },
+        
       prefill: {
         name: "Daksh Titarmare",
         email: "itrnitydaksh@gmail.com",
@@ -123,11 +129,17 @@ const SubscriptionPlans = () => {
     alert("Plan Selected: " + plan.name); // Optional: Show a message to the user
     createRazorpayOrder(plan.price); // Trigger Razorpay payment with the price of the selected plan
   };
+  const handleBack = () => {
+    // Redirect to the previous page
+    window.history.back();
+  }
 
   return (
     <div className="subscription-container">
       {/* Header */}
       <div className="subscription-header">
+      <button onClick={handleBack} className="back-button-sub">&#8592;</button>
+
         <h2>Choose Your Plan</h2>
         <p>Select the perfect plan for your needs</p>
       </div>

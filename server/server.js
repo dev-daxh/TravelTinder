@@ -11,6 +11,7 @@ const jsonRoute = require('./routes/jsonRoute');
 const chatRoute = require('./routes/chatRoute');
 const postRoute = require('./routes/postRoute');
 const homeRoute = require('./routes/homeRoute');
+const exploreRoute = require('./routes/exploreRoute');
 const app = express();
 const path = require('path');
 const multer = require('multer');
@@ -75,7 +76,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoute); // Ensure the /api/user route is correctly mapped
 app.use('/api/uploads', express.static(path.join(__dirname, uploads)));
-app.use('/api/explore', authRoutes);
+app.use('/api/explore', exploreRoute);
 app.use('/api/payment', authPayment);
 app.use('/api/json', jsonRoute);
 app.use('/api/post', postRoute);

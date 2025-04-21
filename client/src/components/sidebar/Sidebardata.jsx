@@ -37,22 +37,22 @@ export const SidebarData = [
     icon: <FaIcons6.FaMoneyBillTransfer  style={{ color: 'black' }} />,
     cName: 'nav-text'
   },
-  // {
-  //   title: 'Settings',
-  //   path: '/setting',
-  //   icon: <Io5Icons.IoSettingsSharp style={{ color: 'black' }} />,
-  //   cName: 'nav-text'
-  // },
+  {
+    title: 'Settings',
+    path: '/setting',
+    icon: <Io5Icons.IoSettingsSharp style={{ color: 'black' }} />,
+    cName: 'nav-text'
+  },
   {
     title: 'Support',
     path: '/terms',
     icon: <IoIcons.IoMdHelpCircle style={{ color: 'black' }} />,
     cName: 'nav-text'
+  },
+  {
+    title: 'Profile',
+    path: '/profile',
+    icon: <FaIcons6.FaCircleUser style={{ color: 'black' }} />,
+    cName: 'nav-text'
   }
-  // {
-  //   title: 'Profile',
-  //   path: '/profile',
-  //   icon: <FaIcons6.FaCircleUser style={{ color: 'black' }} />,
-  //   cName: 'nav-text'
-  // }
 ];

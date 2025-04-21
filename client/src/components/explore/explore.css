@@ -18,7 +18,27 @@
   text-align: center;
   margin-bottom: 2rem;
 }
-
+.host-avatar-placeholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #6200ea;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 10px;
+}
+.back-button-explore{
+  border: none;
+  height:40px;
+  width: 40px;
+  top: 20px;
+  left: 20px;
+  background-color: white;
+  margin-right: 300px;
+}
 /* Trips Grid */
 .trips-grid {
   display: grid;

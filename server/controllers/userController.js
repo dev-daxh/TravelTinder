@@ -398,5 +398,60 @@ const checkUserByEmail = (req, res) => {
     });
 };
 
+const updateImage = (req, res) => {
+    console.log('Request body:', req.body);
+  
+    const { email, profileUrl } = req.body;
+  
+    if (!email || !profileUrl) {
+        console.log('Email or profile URL is missing.');
+      return res.status(400).json({
+        message: "Email and profile URL are required"
+      });
+    }
+  
+    // Replace "." with "_" to create Firebase-friendly user ID
+    const userId = email.replace(/\./g, '_');
+  
+    const usersRef = db.ref('users');
+    const userRef = usersRef.child(userId);
+  
+    // Check if user exists
+    userRef.once('value', (snapshot) => {
+      if (snapshot.exists()) {
+        console.log(`User found: ${email}`);
+  
+        // Update the profile picture URL
+        userRef.update({ profilePicture: profileUrl }, (error) => {
+          if (error) {
+            console.error("Error updating profile picture:", error);
+            return res.status(500).json({
+              message: "Failed to update profile picture",
+              error: error.message
+            });
+          } else {
+            console.log("Profile picture updated successfully.");
+            return res.status(200).json({
+              message: "Profile picture updated",
+              profilePicture: profileUrl
+            });
+          }
+        });
+  
+      } else {
+        console.log(`User not found for email: ${email}`);
+        return res.status(404).json({
+          message: "User not found"
+        });
+      }
+    }, (error) => {
+      console.error("Firebase error:", error.message);
+      return res.status(500).json({
+        message: "Firebase error",
+        error: error.message
+      });
+    });
+  };
+  
 
-module.exports = {userCreate, getUsers, uploadProfileImage ,checkUserByEmail};
+module.exports = {userCreate, getUsers, uploadProfileImage ,checkUserByEmail,updateImage};

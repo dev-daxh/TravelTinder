@@ -1,31 +1,39 @@
 import React, { useState, useEffect } from "react";
 import "./bookingMain.css";
-import Loader from '../loader'; // Adjust path as needed
-import { useNavigate } from "react-router-dom"; // Importing useNavigate for navigation
+import Loader from '../loader';
+import { useNavigate } from "react-router-dom";
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import LogoComponent from "../logoCom";
+import * as AiIcons from 'react-icons/ai';
+
 const PlanTrip = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState("packages");
   const [locationData, setLocationData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); // Initialize useNavigate
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [bookingDetails, setBookingDetails] = useState(null);
+  const [openDialog, setOpenDialog] = useState(false);
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchLocationData = async () => {
       try {
-        // Get the location name from localStorage
         const locationName = localStorage.getItem("searchedLocation");
         if (!locationName) {
           throw new Error("No location selected");
         }
 
-        // Convert location name to lowercase and replace spaces with hyphens
         const formattedLocation = locationName.toLowerCase().replace(/\s+/g, '-');
         console.log("Formatted location:", formattedLocation);
 
-        // Check if the JSON file exists
         const response = await fetch(`./data/${formattedLocation}.json`);
-        
-        // Dynamically import the JSON data
         const data = await import(`./data/${formattedLocation}.json`);
         
         setLocationData(data.default);
@@ -33,10 +41,6 @@ const PlanTrip = () => {
         setError(err.message);
         console.error("Error loading location data:", err);
         alert("No data available for this location");
-        // Redirect to the search page if no data is found
-        // You can also use navigate("/search") to redirect to the search page
-        // Uncomment the line below if you want to redirect to the search page
-        //
         navigate("/search");
       } finally {
         setLoading(false);
@@ -46,28 +50,10 @@ const PlanTrip = () => {
     fetchLocationData();
   }, []);
 
-  // Show Loader when the data is still loading
-  if (loading) {
-    return <Loader message="Fetching Hotel data..." />;
-  }
-
-  // Show error message if there's an error
-  if (error) {
-    return <div className="error">Error: {error}</div>;
-  }
-
-  // Show message if there's no location data
-  if (!locationData) {
-    return <div className="error">No data available for this location</div>;
-  }
-
-  const filteredData = locationData[activeTab].filter((item) =>
-    item.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
   const handleBookBtn = (item) => {
     console.log("Booking details:", item);
     const amount = parseInt(item.price.replace(/[^\d]/g, "")) * 100;
+    setBookingDetails(item);
 
     const loadRazorpayScript = () => {
       const script = document.createElement('script');
@@ -78,7 +64,7 @@ const PlanTrip = () => {
 
     const initializeRazorpay = () => {
       const options = {
-        key: "",
+        key: "rzp_test_OgBgPiHR93lvSY",
         amount: amount,
         currency: "INR",
         name: "Travel Tinder",
@@ -88,8 +74,8 @@ const PlanTrip = () => {
           console.log("Payment successful:", response);
           const paymentId = response.razorpay_payment_id;
           const orderId = response.razorpay_order_id;
-          alert(`Payment successful! Payment ID: ${paymentId}. Order ID: ${orderId}`);
-          window.location.href = "/home";
+          setPaymentSuccess(true);
+          setOpenDialog(true); // Open the Material-UI dialog
         },
         prefill: {
           name: "Customer Name",
@@ -111,6 +97,36 @@ const PlanTrip = () => {
     }
   };
 
+  const handlePublishTrip = () => {
+    localStorage.setItem('currentBooking', JSON.stringify(bookingDetails));
+    setOpenDialog(false);
+    navigate("/trip-onboarding");
+  };
+
+  const handleDontPublish = () => {
+    setOpenDialog(false);
+    window.location.href = "/home";
+  };
+
+  if (loading) {
+    return <Loader message="Fetching Hotel data..." />;
+  }
+
+  if (error) {
+    return <div className="error">Error: {error}</div>;
+  }
+
+  if (!locationData) {
+    return <div className="error">No data available for this location</div>;
+  }
+
+  const filteredData = locationData[activeTab].filter((item) =>
+    item.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  const handleHome = () => {
+    navigate('/home');
+  }
+
   return (
     <div className="plan-trip-container">
       {/* Search Bar */}
@@ -121,7 +137,7 @@ const PlanTrip = () => {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <button className="filter-button">⚙</button>
+        <button className="filter-button" onClick={handleHome}><AiIcons.AiFillHome style={{ color: 'black' }} /></button>
       </div>
 
       {/* Tabs for Packages & Accommodations */}
@@ -165,6 +181,29 @@ const PlanTrip = () => {
           <p>No items found</p>
         )}
       </div>
+
+      {/* Material-UI Dialog */}
+      <Dialog
+        open={openDialog}
+        onClose={handleDontPublish}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Payment Successful!"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Your booking has been confirmed. Would you like to publish this trip?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDontPublish}>No, Keep It Private</Button>
+          <Button onClick={handlePublishTrip} autoFocus>
+            Yes, Publish My Trip
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

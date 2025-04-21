@@ -26,7 +26,7 @@
     "@mantine/spotlight": "^7.17.2",
     "@mantine/tiptap": "^7.17.2",
     "@mui/icons-material": "^6.4.7",
-    "@mui/material": "^6.4.7",
+    "@mui/material": "^6.4.11",
     "@tailwindcss/vite": "^4.0.13",
     "@tiptap/extension-link": "^2.11.5",
     "@tiptap/pm": "^2.11.5",

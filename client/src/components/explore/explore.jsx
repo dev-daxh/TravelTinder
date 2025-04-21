@@ -1,129 +1,30 @@
-// import React, { useState } from "react";
-// import "./explore.css"; // Import CSS for styling
-
-// const usersData = [
-//   {
-//     username: "padole_niraj22",
-//     name: "Niraj.........",
-//     mutual: "Followed by samrudhiiii...",
-//     profilePic: "https://via.placeholder.com/50"
-//   },
-//   {
-//     username: "madhura__mehar",
-//     name: "Dancer || Madhura",
-//     mutual: "Followed by harshalana...",
-//     profilePic: "https://via.placeholder.com/50"
-//   },
-//   {
-//     username: "saloniiii_raut__",
-//     name: "",
-//     mutual: "Followed by samikshaa...",
-//     profilePic: "https://via.placeholder.com/50"
-//   },
-//   {
-//     username: "_shwetaa_16",
-//     name: "sHwEtAaaa....♡",
-//     mutual: "Followed by samrudhiiii...",
-//     profilePic: "https://via.placeholder.com/50"
-//   },
-//   {
-//     username: "baby_girl_nihira",
-//     name: "🐥 Nihira Sarve 🐥",
-//     mutual: "Followed by akshays13...",
-//     profilePic: "https://via.placeholder.com/50"
-//   },
-// ];
-
-// const FollowPage = () => {
-//   const [followedUsers, setFollowedUsers] = useState({});
-
-//   const handleFollow = (username) => {
-//     setFollowedUsers((prev) => ({
-//       ...prev,
-//       [username]: !prev[username],
-//     }));
-//   };
-
-//   return (
-//     <div className="follow-page">
-//       {usersData.map((user, index) => (
-//         <div key={index} className="user-card">
-//           <img src={user.profilePic} alt={user.username} className="profile-pic" />
-//           <div className="user-info">
-//             <span className="username">{user.username}</span>
-//             <span className="name">{user.name}</span>
-//             <span className="mutual">{user.mutual}</span>
-//           </div>
-//           <button
-//             className={`follow-btn ${followedUsers[user.username] ? "following" : ""}`}
-//             onClick={() => handleFollow(user.username)}
-//           >
-//             {followedUsers[user.username] ? "Following" : "Follow"}
-//           </button>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// };
-
-// export default FollowPage;
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaCalendarAlt, FaMapMarkerAlt, FaUserFriends, FaHeart, FaTimes } from 'react-icons/fa';
+import axios from 'axios';
 import './explore.css';
 
-// Mock data for open trips
-const mockTrips = [
-  {
-    id: 1,
-    destination: "Goa, India",
-    image: "https://images.unsplash.com/photo-1601485586342-c40ea828b062",
-    startDate: "2023-11-15",
-    endDate: "2023-11-25",
-    host: {
-      name: "Priya Sharma",
-      avatar: "https://randomuser.me/api/portraits/women/12.jpg",
-      bio: "Goa native with a passion for beach adventures and local culture"
-    },
-    description: "Join our group of travelers for an unforgettable experience exploring Goa’s beautiful beaches, vibrant markets, and rich history. All expenses shared equally.",
-    spotsLeft: 2,
-    groupSize: 4
-  },
-  {
-    id: 2,
-    destination: "Jaipur, India",
-    image: "https://images.unsplash.com/photo-1565609192-5f2764e8e772",
-    startDate: "2023-12-05",
-    endDate: "2023-12-15",
-    host: {
-      name: "Amit Kumar",
-      avatar: "https://randomuser.me/api/portraits/men/32.jpg",
-      bio: "Jaipur guide with a deep love for Rajasthan's heritage and culture"
-    },
-    description: "Join our group during the stunning winter season to explore the palaces, forts, and vibrant bazaars of Jaipur. Let’s discover the rich cultural history together.",
-    spotsLeft: 1,
-    groupSize: 4
-  },
-  {
-    id: 3,
-    destination: "Leh-Ladakh, India",
-    image: "https://images.unsplash.com/photo-1581487447977-08e7b62f0e44",
-    startDate: "2024-05-10",
-    endDate: "2024-05-20",
-    host: {
-      name: "Ravi Desai",
-      avatar: "https://randomuser.me/api/portraits/men/45.jpg",
-      bio: "Experienced adventure guide and outdoor enthusiast, specializing in high-altitude treks"
-    },
-    description: "A unique trekking adventure through the mesmerizing landscapes of Leh-Ladakh. Perfect for those who enjoy nature, mountains, and photography. We’ll hike through the Nubra Valley, Pangong Lake, and more.",
-    spotsLeft: 3,
-    groupSize: 5
-  }
-];
-
-
 const Explore = () => {
+  const [trips, setTrips] = useState([]);
   const [selectedTrip, setSelectedTrip] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch trips from API
+  useEffect(() => {
+    const fetchTrips = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/api/explore/get-all-trip');
+        setTrips(response.data.trips); // this extracts the actual array
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchTrips();
+  }, []);
 
   const openTripModal = (trip) => {
     setSelectedTrip(trip);
@@ -132,48 +33,93 @@ const Explore = () => {
 
   const closeTripModal = () => {
     setIsModalOpen(false);
-    setTimeout(() => setSelectedTrip(null), 300); // Wait for animation to finish
+    setTimeout(() => setSelectedTrip(null), 300);
   };
 
-  const handleJoinRequest = () => {
-    console.log(`Request to join trip to ${selectedTrip.destination} sent`);
-    closeTripModal();
-    // In a real app, you would send a request to the server here
+  const handleJoinRequest = async () => {
+    try {
+      const userEmail = localStorage.getItem('email'); // Get logged in user's email
+      if (!userEmail) {
+        alert('Please login to join a trip');
+        return;
+      }
+
+      // await axios.post('http://localhost:3001/api/trips/join-request', {
+      //   tripId: selectedTrip._id,
+      //   userEmail: userEmail
+      // });
+
+      alert('Join request sent successfully!');
+      closeTripModal();
+      
+      // Update the trips list to reflect the new request
+      const updatedTrips = trips.map(trip => {
+        if (trip._id === selectedTrip._id) {
+          return {
+            ...trip,
+            requestUsers: [...(trip.requestUsers || []), userEmail]
+          };
+        }
+        return trip;
+      });
+      setTrips(updatedTrips);
+    } catch (err) {
+      alert('Error sending join request: ' + err.message);
+    }
   };
 
+  if (loading) {
+    return <div className="loading">Loading trips...</div>;
+  }
+
+  if (error) {
+    return <div className="error">Error: {error}</div>;
+  }
+const handleBack = () => {
+  window.history.back();
+}
   return (
     <div className="explore-container">
+     <button onClick={handleBack} className="back-button-explore">&#8592;</button>
+
       <h1 className="explore-title">Open Trips to Join</h1>
       <p className="explore-subtitle">Find groups looking for travel companions</p>
       
       <div className="trips-grid">
-        {mockTrips.map(trip => (
+        {trips.map(trip => (
           <div 
-            key={trip.id} 
+            key={trip._id} 
             className="trip-card"
             onClick={() => openTripModal(trip)}
           >
             <div 
               className="trip-image"
-              style={{ backgroundImage: `url(${trip.image})` }}
+              style={{ backgroundImage: `url(https://indusringette.ca/cloud/IndusRingette/files/time-to-travel-wooden-sign-beach-background-49509295.jpg)` }} // Default image or use trip.image if available
             >
               <div className="trip-badge">
                 <FaUserFriends className="badge-icon" />
-                <span>{trip.spotsLeft} spot{trip.spotsLeft !== 1 ? 's' : ''} left</span>
+                <span>
+                  {trip.maxGroupSize - (trip.requestUsers?.length || 0)} spot
+                  {trip.maxGroupSize - (trip.requestUsers?.length || 0) !== 1 ? 's' : ''} left
+                </span>
               </div>
             </div>
             
             <div className="trip-info">
               <h3 className="trip-destination">
-                <FaMapMarkerAlt className="icon" /> {trip.destination}
+                {/* <FaMapMarkerAlt className="icon" />  */} Title : {trip.title}
               </h3>
               <div className="trip-dates">
                 <FaCalendarAlt className="icon" />
-                <span>{new Date(trip.startDate).toLocaleDateString()} - {new Date(trip.endDate).toLocaleDateString()}</span>
+                <span>
+                  {new Date(trip.startDate).toLocaleDateString()} - {new Date(trip.endDate).toLocaleDateString()}
+                </span>
               </div>
               <div className="trip-host">
-                <img src={trip.host.avatar} alt={trip.host.name} className="host-avatar" />
-                <span>Hosted by {trip.host.name}</span>
+                <div className="host-avatar-placeholder">
+                  {trip.hostedBy.charAt(0).toUpperCase()}
+                </div>
+                <span>Hosted by {trip.hostedBy}</span>
               </div>
             </div>
           </div>
@@ -190,17 +136,21 @@ const Explore = () => {
             
             <div 
               className="modal-image"
-              style={{ backgroundImage: `url(${selectedTrip.image})` }}
+              style={{ backgroundImage: `url(https://indusringette.ca/cloud/IndusRingette/files/time-to-travel-wooden-sign-beach-background-49509295.jpg)` }} // Default image or use selectedTrip.image
             >
               <div className="modal-badge">
                 <FaUserFriends className="badge-icon" />
-                <span>{selectedTrip.spotsLeft} spot{selectedTrip.spotsLeft !== 1 ? 's' : ''} left (Group of {selectedTrip.groupSize})</span>
+                <span>
+                  {selectedTrip.maxGroupSize - (selectedTrip.requestUsers?.length || 0)} spot
+                  {selectedTrip.maxGroupSize - (selectedTrip.requestUsers?.length || 0) !== 1 ? 's' : ''} left 
+                  (Group of {selectedTrip.maxGroupSize})
+                </span>
               </div>
             </div>
             
             <div className="modal-content">
               <h2 className="modal-destination">
-                <FaMapMarkerAlt className="icon" /> {selectedTrip.destination}
+                <FaMapMarkerAlt className="icon" /> {selectedTrip.title}
               </h2>
               
               <div className="modal-dates">
@@ -217,17 +167,33 @@ const Explore = () => {
               <div className="modal-description">
                 <h3>Trip Details</h3>
                 <p>{selectedTrip.description}</p>
+                
+                <h4>Interests</h4>
+                <p>{selectedTrip.interests}</p>
+                
+                <h4>Trip Type</h4>
+                <p>{selectedTrip.tripType}</p>
+                
+                <h4>Rules</h4>
+                <p>{selectedTrip.rules}</p>
               </div>
               
-              <button className="join-button" onClick={handleJoinRequest}>
-                Request to Join
+              <button 
+                className="join-button" 
+                onClick={handleJoinRequest}
+                disabled={selectedTrip.requestUsers?.includes(localStorage.getItem('email'))}
+              >
+                {selectedTrip.requestUsers?.includes(localStorage.getItem('email')) 
+                  ? 'Request Pending' 
+                  : 'Request to Join'}
               </button>
               
               <div className="modal-host">
-                <img src={selectedTrip.host.avatar} alt={selectedTrip.host.name} className="host-avatar" />
+                <div className="host-avatar-placeholder">
+                  {selectedTrip.hostedBy.charAt(0).toUpperCase()}
+                </div>
                 <div className="host-info">
-                  <h4>Hosted by {selectedTrip.host.name}</h4>
-                  <p className="host-bio">{selectedTrip.host.bio}</p>
+                  <h4>Hosted by {selectedTrip.hostedBy}</h4>
                 </div>
               </div>
             </div>

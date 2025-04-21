@@ -4,8 +4,32 @@
   flex-direction: column;
   height: 97vh;
   background: #f5f5f5;
+  position: relative;
+}
+/* Logo Styles */
+.logo-container {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+  cursor: pointer;
 }
 
+.logo-image {
+  height: 40px; /* Adjust size as needed */
+  width: auto;
+  transition: transform 0.2s;
+}
+
+.logo-image:hover {
+  transform: scale(1.05);
+}
+
+/* Make sure your chat-container has relative positioning */
+.chat-container {
+  position: relative;
+  /* ... your existing chat-container styles ... */
+}
 /* Header */
 .chat-header {
   display: flex;
@@ -14,21 +38,25 @@
   background: white;
   padding: 10px;
   border-bottom: 1px solid #ddd;
+  z-index: 10;  /* Ensuring it is not hidden under other elements */
 }
 
 .user-info-chat {
   display: flex;
   align-items: center;
-  padding: 20px;
-  background: white;
   gap: 10px;
 }
-
-.user-avatar {
-  width: 75px;
-  height: 75px;
+.back-button-chat{
+  height: 30px;
+  width: 30px;
+  background: #ffffff;
   border-radius: 50%;
-  object-fit: fill;
+}
+.user-avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover; /* Ensure image does not stretch */
 }
 
 .user-name {
@@ -42,7 +70,6 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  margin-right: 34px;
 }
 
 .status-dot {
@@ -51,6 +78,7 @@
   background: green;
   border-radius: 50%;
 }
+
 
 /* Chat actions */
 .chat-actions {
@@ -72,6 +100,13 @@
 .icon {
   font-size: 24px;
   color: #333;
+  height: 27px;
+  width: 27px;
+  display: flex;
+  align-items: center;  
+  justify-content: center;
+  transition: background 0.3s;
+
 }
 
 /* Chat body */

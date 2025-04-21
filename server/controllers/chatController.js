@@ -19,7 +19,6 @@ const getChatMainData = async (req, res) => {
       // Extract the user profiles data
       const usersData = usersSnapshot.val();
       console.log('All users data done');
-  
       // Return the profiles data in the response
       return res.status(200).json({ profiles: usersData });
     

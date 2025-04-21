@@ -6,7 +6,16 @@
   min-height: 100vh;
   background-color: #f1f1f1;
 }
-
+.back-button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  margin-right: 390px;
+  height: 20px;
+  width: 20px;
+  padding: 20px;
+}
 /* Chat card styling */
 .chat-card {
   display: flex;
